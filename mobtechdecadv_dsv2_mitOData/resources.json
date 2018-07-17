@@ -1,0 +1,133 @@
+{
+    "resources": [
+        {
+            "name": "css/style.css"
+        },
+        {
+            "name": "model/formatter.js"
+        },
+        {
+            "name": "model/models.js"
+        },
+        {
+            "name": "model/newProject.json"
+        },
+        {
+            "name": "resources.json",
+            "merged": true
+        },
+        {
+            "name": "index.html"
+        },
+        {
+            "name": "Component.js"
+        },
+        {
+            "name": ".project.json"
+        },
+        {
+            "name": "i18n/i18n_en_US.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "i18n/i18n_en.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "i18n/i18n_de.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": ".user.project.json"
+        },
+        {
+            "name": "img/landingimg.jpg"
+        },
+        {
+            "name": "controller/LoadProject.controller.js"
+        },
+        {
+            "name": "controller/Landing.controller.js"
+        },
+        {
+            "name": "controller/App.controller.js"
+        },
+        {
+            "name": "controller/CreateProject.controller.js"
+        },
+        {
+            "name": "controller/PrintProject.controller.js"
+        },
+        {
+            "name": "controller/BaseController.js"
+        },
+        {
+            "name": "fragment/PrintPDF.fragment.xml"
+        },
+        {
+            "name": "fragment/Instruction.fragment.xml"
+        },
+        {
+            "name": "fragment/Information.fragment.xml"
+        },
+        {
+            "name": "fragment/IncludedEnhancements.fragment.xml"
+        },
+        {
+            "name": "fragment/Dialog.fragment.xml"
+        },
+        {
+            "name": "fragment/BusyWhilePrintDialog.fragment.xml"
+        },
+        {
+            "name": "neo-app.json"
+        },
+        {
+            "name": "js/jspdf.min.js"
+        },
+        {
+            "name": "js/jspdf.plugin.autotable.min.js"
+        },
+        {
+            "name": "js/html2pdf.js"
+        },
+        {
+            "name": "js/html2canvas.min.js"
+        },
+        {
+            "name": "util/storage.js"
+        },
+        {
+            "name": "manifest.json"
+        },
+        {
+            "name": "Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "README.md"
+        },
+        {
+            "name": "view/Practice.view.xml"
+        },
+        {
+            "name": "view/PrintProject.view.xml"
+        },
+        {
+            "name": "view/App.view.xml"
+        },
+        {
+            "name": "view/Landing.view.xml"
+        },
+        {
+            "name": "view/LoadProject.view.xml"
+        },
+        {
+            "name": "view/CreateProject.view.xml"
+        }
+    ]
+}

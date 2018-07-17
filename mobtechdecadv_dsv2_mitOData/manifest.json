@@ -1,0 +1,167 @@
+{
+    "_version": "1.1.0",
+    "sap.app": {
+        "_version": "1.1.0",
+        "id": "M4A",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "sourceTemplate": {
+            "id": "ui5template.basicSAPUI5ApplicationProject",
+            "version": "1.40.12"
+        }
+    },
+    "sap.ui": {
+        "_version": "1.1.0",
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_hcb",
+            "sap_belize"
+        ]
+    },
+    "sap.ui5": {
+        "_version": "1.1.0",
+        "rootView": {
+            "viewName": "M4A.view.App",
+            "type": "XML"
+        },
+        "dependencies": {
+            "minUI5Version": "1.30.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "M4A.i18n.i18n"
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ],
+            "js": [
+                {
+                    "uri": "js/jspdf.min.js"
+                },
+                {
+                    "uri": "js/jspdf.plugin.autotable.min.js"
+                },
+                {
+                    "uri": "js/html2canvas.min.js"
+                },
+                {
+                    "uri": "js/html2pdf.js"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewPath": "M4A.view",
+                "controlId": "app",
+                "controlAggregation": "pages"
+            },
+            "routes": [
+                {
+                    "name": "landing",
+                    "pattern": "",
+                    "target": [
+                        "landing"
+                    ]
+                },
+                {
+                    "name": "loadProject",
+                    "pattern": "loadProject",
+                    "target": [
+                        "loadProject"
+                    ]
+                },
+                {
+                    "name": "createProject",
+                    "pattern": "createProject/{projectIndex}",
+                    "target": [
+                        "createProject"
+                    ]
+                },
+                {
+                    "name": "printProject",
+                    "pattern": "printProject/{index}",
+                    "target": [
+                        "printProject"
+                    ]
+                }
+            ],
+            "targets": {
+                "landing": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "Landing",
+                    "viewLevel": 1,
+                    "controlAggregation": "pages",
+                    "controlId": "app"
+                },
+                "loadProject": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "LoadProject",
+                    "viewLevel": 1,
+                    "controlAggregation": "pages",
+                    "controlId": "app"
+                },
+                "createProject": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "CreateProject",
+                    "viewLevel": 1,
+                    "controlAggregation": "pages",
+                    "controlId": "app"
+                },
+                "printProject": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "PrintProject",
+                    "viewLevel": 1,
+                    "controlAggregation": "pages",
+                    "controlId": "app"
+                }
+            }
+        }
+    },
+    "sap.platform.hcp": {
+        "uri": "",
+        "_version": "1.1.0"
+    }
+}
