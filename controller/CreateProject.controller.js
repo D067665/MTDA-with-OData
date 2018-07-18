@@ -1020,7 +1020,7 @@ sap.ui.define([
 					var selectedWeight = projectValues[category][factorName].importance.key;
 					factorCatalogModel.setProperty("/" + category + "/" + i + "/currentSelection", selectedOption);
 					factorCatalogModel.setProperty("/" + category + "/" + i + "/currentWeight", selectedWeight);
-					
+
 				}
 			}
 			//initialize Model
@@ -1521,8 +1521,11 @@ sap.ui.define([
 			//save status into savedProjectsModel
 			savedProjectsModel.setProperty(viewBindingPath + "/status", wholeStatus);
 			savedProjectsModel.setProperty(this.getView().getBindingContext("savedProjects") + "/lastChangedDate", new Date());
-			var savedProjects = savedProjectsModel.getJSON();
-			storage.save("savedProjects", savedProjects);
+			//don't store changes in storage anymore but in odata service
+		   /*	var savedProjects = savedProjectsModel.getJSON();
+			storage.save("savedProjects", savedProjects);*/
+			
+			this._getODataService();
 
 			this._updateRecommendation(category);
 		},
@@ -1742,6 +1745,43 @@ sap.ui.define([
 			} else {
 				return oFactorCatalogModel;
 			}
-		}
-	});
+		},
+		_getODataService: function() {
+			var oDataModel = this.getOwnerComponent().getModel("savedProjectsOData");
+			oDataModel.metadataLoaded().then(this._updateODataService.bind(this, oDataModel));
+		},
+		_updateODataService: function(oDataModel) {
+			var success = function(data, resp) {
+				console.log(data);
+				console.log(resp);
+				//get results of filter method and transform strings in json
+
+			}; //success
+
+			var error = function(err) {
+				console.log(err);
+
+			}; //error
+			var savedProjectsModel = this._getSavedProjectsModel();
+			var viewBindingPath = this.getView().getBindingContext("savedProjects").getPath();
+			var oProjectToUpdate = savedProjectsModel.getProperty(viewBindingPath);
+			var sIdProjectToUpdate = savedProjectsModel.getProperty(viewBindingPath + "/projectId");
+			var iIdProjectToUpdate = JSON.parse(sIdProjectToUpdate);
+			var sProjectToUpdate = JSON.stringify(oProjectToUpdate);
+			var oEntry = {};
+			oEntry.PROJECT = sProjectToUpdate;
+			oDataModel.update("/SavedProjectsOData(" + iIdProjectToUpdate + ")", oEntry ,{
+				success: success,
+				error: error});
+				
+			
+			/*{
+				oEntry: oEntry,
+				success: success,
+				error: error
+			});*/
+
+		
+	}
+});
 });

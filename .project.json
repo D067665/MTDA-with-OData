@@ -20,5 +20,19 @@
     "account": "a6e79f151",
     "name": "mobtechdecadv",
     "lastVersionWeTriedToDeploy": "1.2"
+  },
+  "generation": [
+    {
+      "templateId": "servicecatalog.connectivityComponent",
+      "templateVersion": "0.0.0",
+      "dateTimeStamp": "Tue, 17 Jul 2018 07:55:11 GMT"
+    }
+  ],
+  "mockpreview": {
+    "mockUri": "/MobileTechnologyDecisionAdvisor/MobileTechnologyDecisionAdvisor/mobileTechnologyDecisionAdvisor.xsodata",
+    "metadataFilePath": "",
+    "loadJSONFiles": false,
+    "loadCustomRequests": false,
+    "mockRequestsFilePath": ""
   }
 }

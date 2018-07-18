@@ -25,8 +25,11 @@ sap.ui.define([
         	this.setModel(i18nModel, "i18n");
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
+			//set userAPI Model
+			var userModel = new sap.ui.model.json.JSONModel("/services/userapi/currentUser");
+			this.setModel(userModel, "userapi");
 			// set the saved Projects model
-			this.setModel(models.createSavedProjectsModel(), "savedProjects");
+			this.setModel(models.createSavedProjectsModel(this), "savedProjects");
 			//set the factor catalog model
 			this.setModel(models.createFactorCatalogModel(), "factorCatalog");
 			// call the base component's init function
