@@ -13,8 +13,8 @@ sap.ui.define([
 		onInit: function() {
 			// set explored app's demo model on this sample
 			debugger;
-			var oModel = this.getOwnerComponent().getModel("savedProjects");
-			this.getView().setModel("savedProjects");
+			//var oModel = this.getOwnerComponent().getModel("savedProjects");
+			//this.getView().setModel("savedProjects");
 			/*var oModel = this.getView().getModel("savedProjects");
 			this.getView().setModel(oModel);*/
 			//location.reload(true);
@@ -122,9 +122,13 @@ sap.ui.define([
 						console.log(err);
 						debugger;
 					};
+					var oUserModel = that.getOwnerComponent().getModel("userapi");
+
+					//oUserModel.attachRequestCompleted(function() {
+					var sName = oUserModel.getProperty("/name");
 					var oProperties = {
 						ID: "" + parseInt(Math.random() * 10000000),
-						CREATEDBY: "D067665",
+						CREATEDBY: sName,
 						PROJECT: sNewProject
 					};
 					var oContext = that.getOwnerComponent().getModel("savedProjectsOData").createEntry("/SavedProjectsOData", {
@@ -215,12 +219,14 @@ sap.ui.define([
 				//savedProjectsModel.setProperty("/" + newProjectIndex, oModelItemCloned);
 				savedProjectsModel.setData(savedProjects);
 				var sModelItemCloned = JSON.stringify(oModelItemCloned);
+
 				var oUserModel = this.getOwnerComponent().getModel("userapi");
+
 				//oUserModel.attachRequestCompleted(function() {
-				//var sName = oUserModel.getProperty("/name");
+				var sName = oUserModel.getProperty("/name");
 				var oProperties = {
 					ID: "" + parseInt(Math.random() * 10000000),
-					CREATEDBY: "D067665",
+					CREATEDBY: sName,
 					PROJECT: sModelItemCloned
 				};
 				var success = function(data, resp) {
@@ -249,7 +255,7 @@ sap.ui.define([
 				});
 				this.getOwnerComponent().getModel("savedProjectsOData").submitChanges();
 
-				//});
+				//});//attachrequestcompleted
 
 			} //handleCopy
 	});

@@ -1525,7 +1525,7 @@ sap.ui.define([
 		   /*	var savedProjects = savedProjectsModel.getJSON();
 			storage.save("savedProjects", savedProjects);*/
 			
-			this._getODataService();
+			//this._getODataService();
 
 			this._updateRecommendation(category);
 		},
@@ -1747,6 +1747,7 @@ sap.ui.define([
 			}
 		},
 		_getODataService: function() {
+			debugger;
 			var oDataModel = this.getOwnerComponent().getModel("savedProjectsOData");
 			oDataModel.metadataLoaded().then(this._updateODataService.bind(this, oDataModel));
 		},

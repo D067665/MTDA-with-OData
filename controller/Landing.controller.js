@@ -4,6 +4,7 @@ sap.ui.define([
 	"use strict";
 
 	return BaseController.extend("M4A.controller.Landing", {
+	
 		_onNavToCreateProject: function(oEvent) {
 			var that = this;
 			var sUrl = jQuery.sap.getModulePath("M4A.model", "/newProject.json");
@@ -39,10 +40,14 @@ sap.ui.define([
 					};
 					var error = function(err) {
 						console.log(err);
-						};
+					};
+					var oUserModel = that.getOwnerComponent().getModel("userapi");
+
+					//oUserModel.attachRequestCompleted(function() {
+					var sName = oUserModel.getProperty("/name");
 					var oProperties = {
 						ID: "" + parseInt(Math.random() * 10000000),
-						CREATEDBY: "D067665",
+						CREATEDBY: sName,
 						PROJECT: sNewProject
 					};
 					var oContext = that.getOwnerComponent().getModel("savedProjectsOData").createEntry("/SavedProjectsOData", {
@@ -57,30 +62,43 @@ sap.ui.define([
 				}
 			});
 			var button1 = sap.ui.getCore().byId("__xmlview3--audienceGroup");
-			if(button1 !== null){
-			button1.setSelectedButton("__xmlview3--businessToCustomer-button");
+			if (button1 !== null) {
+				button1.setSelectedButton("__xmlview3--businessToCustomer-button");
 			}
 		},
 		_onNavToLoadProject: function(oEvent) {
 			this.getRouter().navTo("loadProject");
 		},
 		_onDialogInstructionPress: function(oEvent) {
+			debugger;
 			var i18nModel = this.getView().getModel("i18n");
 			var newText = "instruction";
-			
+
 			newText = i18nModel.getProperty(newText);
 			this._getInstructionDialog().open();
 			sap.ui.getCore().byId('inputInstruction').setText(newText);
 		},
-		_getInstructionDialog : function() {
-            // create a fragment with dialog, and pass the selected data
-            if (!this.dialog) {
-                this.dialog = sap.ui.xmlfragment("M4A.fragment.Instruction", this);
-            }
-            return this.dialog;
-        },
-        _onCloseLandingDialog : function() {
-                this._getInstructionDialog().close();
-        }
+		_getInstructionDialog: function() {
+			// create a fragment with dialog, and pass the selected data
+			
+				this.dialog = sap.ui.xmlfragment("M4A.fragment.Instruction", this);
+			
+			return this.dialog;
+		},
+		_onDialogIncludedEnhancementsPress: function(oEvent){
+			this._getIncludedEnhancementsDialog().open();
+		
+		},
+		_getIncludedEnhancementsDialog: function(){
+			
+				this.dialog = sap.ui.xmlfragment("M4A.fragment.IncludedEnhancements", this);
+			
+			return this.dialog;
+		},
+		
+		_onCloseLandingDialog: function() {
+			this.dialog.close();
+			this._getInstructionDialog().destroy(true);
+		}
 	});
 });

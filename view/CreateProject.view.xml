@@ -410,7 +410,6 @@
 						<Button text="{i18n>version}" press="_onFooterVersionButtonPress"/>
 						<Button text="{i18n>reset}" visible="{= ${savedProjects>selectedIconTab} !=='overview'}" press="_onFooterResetButtonPress"/>
 						<Button id="exportPDFButton3" icon="sap-icon://download" press="_onPressNavPrint" ariaDescribedBy="defaultButtonDescription genericButtonDescription" class="addSpaceBetweenButtons"/>
-						<Button text="SaveOdata" press= "_getODataService"/>
 						<ToolbarSpacer/>
 						<FlexBox visible="{= ${savedProjects>selectedIconTab} ==='clientTechnology'}" alignItems="Center">
 							<Title width="7rem" textAlign="Center" text="{path: 'savedProjects>iconTabs/clientTechnology/0', formatter: '.formatter.translate'} : " level="H1" visible="{= ${savedProjects>decisionIndication/clientTechnology/} !== 0}"/>
@@ -460,6 +459,7 @@
 						<ToolbarSpacer/>
 						<Button text="{i18n>back}" visible="{= ${savedProjects>selectedIconTab} !=='information'}" press="_onFooterBackButtonPress"/>
 						<Button text="{i18n>continue}" visible="{= ${savedProjects>selectedIconTab} !=='overview'}" press="_onFooterContinueButtonPress"/>
+						<Button id="saveOData" icon ="sap-icon://save" press= "_getODataService"/>
 					</Toolbar>
 				</footer>
 			</Page>

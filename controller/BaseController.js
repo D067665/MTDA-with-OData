@@ -19,7 +19,7 @@ sap.ui.define([
 	/*		}
 	*/	},
 		_onCloseIncludedEnhancementsDialog: function(){
-			this._getIncludedEnhancementsDialog().close();
+			this.dialog.close();
 		},
 		_getIncludedEnhancementsDialog: function(){
 				if (!this.dialog) {
@@ -28,7 +28,7 @@ sap.ui.define([
 			return this.dialog;
 		},
 		_onFooterVersionButtonPress: function(){
-			
+			debugger;
 				var oDialog = this._getIncludedEnhancementsDialog();
 				oDialog.open();
 			
