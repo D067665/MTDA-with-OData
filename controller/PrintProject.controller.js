@@ -16,22 +16,25 @@ sap.ui.define([
 		formatter: formatter,
 		globalVariableIndex:0,
 		onInit: function() {
+			debugger;
 			var oRouter = this.getRouter();
 		
 			oRouter.getRoute("printProject").attachMatched(this.onRouteMatched, this);
-			/*this.getView("printProjectPage").addEventDelegate({
+			
+			this.getView("printProjectPage").addEventDelegate({
 				"onAfterRendering": function(){
 						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 						oRoter.navTo("loadProject");
-					/*	oRouter.navTo("createProject", {
+						oRouter.navTo("createProject", {
         		projectIndex: this.globalVariableIndex
                 	});
 				}
-			},this);*/
+			},this);  
 
 		},
 		onRouteMatched: function(oEvent) {
 		//getProject Index
+		//test test test
 			var oArgs = oEvent.getParameter("arguments");
 			
 
@@ -52,90 +55,37 @@ sap.ui.define([
 			 //open dialog
 			jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._dialog);
 			this._dialog.open();
+			
 			//printPDF
-
-				var element = this.getView().byId("printProjectPage").getDomRef().innerHTML;
+			var element = this.getView().byId("printProjectPage").getDomRef().innerHTML;
+			var opt = {
+				margin: 0.5,
+				filename: 'MobileTechnologyDecisionAdvisor.pdf',
 				
-				
-				var opt = {
-					margin: 0.5,
-					filename: 'MobileTechnologyDecisionAdvisor.pdf',
-					
-					html2canvas: {
-						scale: 2
-					},
-					jsPDF: {
-						unit: 'in',
-						format: 'letter',
-						orientation: 'landscape'
-						
-					}
-				};
-
+				html2canvas: {
+					scale: 2
+				},
+				jsPDF: {
+					unit: 'in',
+					format: 'letter',
+					orientation: 'landscape'
+				}
+			};
 				html2pdf().from(element).set(opt).save();
-				
-			
-				//this._dialog.close();
-			this._navBackToOverview();
-			this._dialog.close();
-				
-
+				this._dialog.close(oEvent);
+				this._navBackToOverview(oEvent);
 			}.bind(this), 100);
-		
-			
-
 		},
+		
 		_onDialogClosed: function(){
 			this._navBackToOverview();
 		},
 
-		/*onAfterRendering: function() {
-			setTimeout(function() {
-
-				var element = this.getView().byId("printProjectPage").getDomRef().innerHTML;
-				
-				
-				var opt = {
-					margin: 0.5,
-					filename: 'MobileTechnologyDecisionAdvisorDienstag.pdf',
-					
-					html2canvas: {
-						scale: 2
-					},
-					jsPDF: {
-						unit: 'in',
-						format: 'letter',
-						orientation: 'landscape'
-						
-					}
-				};
-
-				html2pdf().from(element).set(opt).save();
-				
-
-			}.bind(this), 300);
-			this._navBackToOverview();
-			
-
-		},*/
-	/*clicked: function(oEvent) {
-  				this.getView().invalidate();
-		},*/
 		 _navBackToOverview: function(oEvent){
-		 	
-        	//var projectIndex = this.getView().getBindingContext("savedProjects").getPath().slice(1);
-        
-        	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-        	//this.getRouter().navTo("loadProject");
-        	//oRouter.navTo("loadProject");
-        	
-        	oRouter.navTo("createProject", {
+		 	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+        	oRouter.navTo("LoadProject", {
         		projectIndex: this.globalVariableIndex
         	});
-        	
-       
 		 }
-        	
-
 	});
 });

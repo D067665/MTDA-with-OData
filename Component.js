@@ -29,7 +29,6 @@ sap.ui.define([
 			var userModel = new sap.ui.model.json.JSONModel("/services/userapi/currentUser");
 			this.setModel(userModel, "userapi");
 			// set the saved Projects model
-			debugger;
 			this.setModel(models.createSavedProjectsModel(this), "savedProjects");
 			//set the factor catalog model
 			this.setModel(models.createFactorCatalogModel(), "factorCatalog");

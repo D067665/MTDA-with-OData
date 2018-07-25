@@ -44,8 +44,23 @@ sap.ui.define([
 
 			var oContent = this.getView().byId("createProjectPage");
 			oContent.removeStyleClass("sapMPageEnableScrolling");
+			var oDeviceModel = this.getOwnerComponent().getModel("device");
+			var bDevice = oDeviceModel.getProperty("/system/phone");
+			var oFragment = sap.ui.xmlfragment("M4A.fragment.audienceGroup", this);
+		
+			
+			if (bDevice === true) {
+
+				this.byId("changeModeHBox").destroy();
+				this.byId("audienceGroup").destroy();
+				this.byId("audienceGroupVBox").addItem(oFragment);
+				
+
+			}
+		
 		},
 		_onNavBackPress: function(oEvent) {
+			this._getODataService();
 			this._onPageNavButtonPress();
 		},
 		_onCloseInformationDialog: function() {
@@ -84,6 +99,7 @@ sap.ui.define([
 			iconTabBar.setSelectedKey(items[items.indexOf(currentItem) - 2].getKey());
 		},
 		_onFooterContinueButtonPress: function(oEvent) {
+			
 			var iconTabBar = this._getIconTabBar();
 			var selectedKey = iconTabBar.getSelectedKey();
 			var items = iconTabBar.getItems();

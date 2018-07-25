@@ -1386,7 +1386,7 @@ sap.ui.define([
 							var savedProjects = [];
 							//get Model for UserInformation and wait till data is loaded
 };
-debugger;
+
 							var oUserModel = oContext.getModel("userapi");
 							if (jQuery.isEmptyObject(oUserModel.getData() )) {
 								oUserModel.attachRequestCompleted(fnInitiateNewModel);

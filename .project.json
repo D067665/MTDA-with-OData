@@ -29,8 +29,8 @@
     }
   ],
   "mockpreview": {
-    "mockUri": "/MobileTechnologyDecisionAdvisor/MobileTechnologyDecisionAdvisor/mobileTechnologyDecisionAdvisor.xsodata",
-    "metadataFilePath": "",
+    "mockUri": "/MobileTechnologyDecisionAdvisor/MobileTechnologyDecisionAdvisor/mobileTechnologyDecisionAdvisor.xsodata/",
+    "metadataFilePath": "localService/metadata.xml",
     "loadJSONFiles": false,
     "loadCustomRequests": false,
     "mockRequestsFilePath": ""

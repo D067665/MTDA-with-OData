@@ -4,7 +4,22 @@ sap.ui.define([
 	"use strict";
 
 	return BaseController.extend("M4A.controller.Landing", {
-	
+		onAfterRendering: function() {
+			
+			var oDeviceModel = this.getOwnerComponent().getModel("device");
+			var bDevice = oDeviceModel.getProperty("/system/phone");
+			var oImage = this.getView().byId("landingImage");
+			var oFragment = sap.ui.xmlfragment("M4A.fragment.LandingFooterDevice", this);
+
+			if (bDevice === true) {
+				oImage.addStyleClass("img");
+				
+				this.byId("landingPage").setFooter(oFragment);
+
+			}
+		},
+		//test
+
 		_onNavToCreateProject: function(oEvent) {
 			var that = this;
 			var sUrl = jQuery.sap.getModulePath("M4A.model", "/newProject.json");
@@ -80,22 +95,22 @@ sap.ui.define([
 		},
 		_getInstructionDialog: function() {
 			// create a fragment with dialog, and pass the selected data
-			
-				this.dialog = sap.ui.xmlfragment("M4A.fragment.Instruction", this);
-			
+
+			this.dialog = sap.ui.xmlfragment("M4A.fragment.Instruction", this);
+
 			return this.dialog;
 		},
-		_onDialogIncludedEnhancementsPress: function(oEvent){
+		_onDialogIncludedEnhancementsPress: function(oEvent) {
 			this._getIncludedEnhancementsDialog().open();
-		
+
 		},
-		_getIncludedEnhancementsDialog: function(){
-			
-				this.dialog = sap.ui.xmlfragment("M4A.fragment.IncludedEnhancements", this);
-			
+		_getIncludedEnhancementsDialog: function() {
+
+			this.dialog = sap.ui.xmlfragment("M4A.fragment.IncludedEnhancements", this);
+
 			return this.dialog;
 		},
-		
+
 		_onCloseLandingDialog: function() {
 			this.dialog.close();
 			this._getInstructionDialog().destroy(true);

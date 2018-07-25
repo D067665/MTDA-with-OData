@@ -12,7 +12,7 @@ sap.ui.define([
 
 		onInit: function() {
 			// set explored app's demo model on this sample
-			debugger;
+
 			//var oModel = this.getOwnerComponent().getModel("savedProjects");
 			//this.getView().setModel("savedProjects");
 			/*var oModel = this.getView().getModel("savedProjects");
@@ -31,6 +31,27 @@ sap.ui.define([
 		onExit: function() {
 			if (this._oDialog) {
 				this._oDialog.destroy();
+			}
+		},
+		onAfterRendering: function() {
+
+			var oDeviceModel = this.getOwnerComponent().getModel("device");
+			var bDevice = oDeviceModel.getProperty("/system/phone");
+			var oHeader = new sap.m.Text({
+				id: "textColumnTitleCopyButtonText",
+				text: "Copy Project",
+				width: "auto",
+				maxLines: 1,
+				wrapping: false,
+				textAlign: "Center",
+				textDirection: "Inherit"
+
+			});
+
+			if (bDevice === true) {
+
+				this.byId("columnCopyButton").setHeader(oHeader);
+
 			}
 		},
 		_handleViewSettingsDialogButtonPressed: function(oEvent) {

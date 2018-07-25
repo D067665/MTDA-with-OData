@@ -3,26 +3,139 @@
 	controllerName="M4A.controller.PrintProject">
 	<App>
 		<pages>
-			<Page title="{i18n>appTitle}" id="printProjectPage" showHeader="true" showFooter="true" showNavButton="false" width="auto"
-				class="sapUiResponsiveContentPadding">
+			<Page title="{i18n>appTitle1234}" titleStyle="H1" id="printProjectPage" showHeader="true" showFooter="true" showNavButton="false" width="auto"
+				class="sapUiResponsiveContentPadding" >
 				<content>
-					<VBox id="printTitle" class="sapUiSmallMargin">
-						<Title text="{i18n>applicationName}: {savedProjects>applicationName}" titleStyle="H2"/>
-						<Label text="{i18n>useCase}: {savedProjects>additionalInformation/useCase} "/>
-						<Label text="{i18n>owner}: {savedProjects>additionalInformation/owner}"/>
-						<Label text="{i18n>audienceGroup}: {savedProjects>audienceGroup} "/>
-						<Label text="{i18n>users}:{savedProjects>additionalInformation/users} "/>
-						<Label text="{i18n>userGeography}:"/>
-						<Label
-							text="{i18n>userGeography}: {i18n>regional}: {savedProjects>additionalInformation/userGeography/0}, {i18n>local}: {savedProjects>additionalInformation/userGeography/1}, {i18n>global}: {savedProjects>additionalInformation/userGeography/2}"/>
-						<Label text="{i18n>language}: {savedProjects>additionalInformation/language} "/>
-						<Label
-							text="{i18n>devicePlatform}: {i18n>iOS}: {savedProjects>additionalInformation/devicePlatform/0}, {i18n>android}: {savedProjects>additionalInformation/devicePlatform/1}, {i18n>windows}: {savedProjects>additionalInformation/devicePlatform/2}, {i18n>blackberry}: {savedProjects>additionalInformation/devicePlatform/3}, {i18n>unknown}: {savedProjects>additionalInformation/devicePlatform/4} "/>
-						<Label
-							text="{i18n>deviceFormFactor}:{i18n>smartphone}: {savedProjects>additionalInformation/deviceFormFactor/0}, {i18n>tablet}: {savedProjects>additionalInformation/deviceFormFactor/1}, {i18n>laptop}: {savedProjects>additionalInformation/deviceFormFactor/2}"/>
-						<Label text="{i18n>plannedGoLive}: {savedProjects>additionalInformation/plannedGoLive} "/>
-						<Label text="{i18n>plannedEndOfLife}: {savedProjects>additionalInformation/plannedEndOfLife}"/>
-					</VBox>
+					<Table id="tableTest" width="auto" class="sapUiSmallMargin">
+						<columns>
+							<Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Title text="{i18n>applicationName}: {savedProjects>applicationName}" width="auto" wrapping="false" textAlign="Begin" textDirection="Inherit" titleStyle="H2"/>
+								</header>
+								<footer/>
+							</Column>
+							<Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<header>
+									<Text text=" " width="auto" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+								</header>
+								<footer/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<HBox width="auto" justifyContent="SpaceBetween">
+										<ObjectIdentifier title="{i18n>useCase}"/>
+									</HBox>
+									<HBox>
+										<Label text="{savedProjects>additionalInformation/useCase}"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+							<ColumnListItem>
+								<cells>
+									<HBox width="auto" justifyContent="SpaceBetween">
+										<ObjectIdentifier title="{i18n>owner}"/>
+									</HBox>
+									<HBox>
+										<Label text="{savedProjects>additionalInformation/owner}"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+							<ColumnListItem>
+								<cells>
+									<HBox width="auto" justifyContent="SpaceBetween">
+										<ObjectIdentifier title="{i18n>audienceGroup}"/>
+									</HBox>
+									<HBox>
+										<Label visible="{= ${savedProjects>audienceGroup} === 'businessToCustomer'}" text="{i18n>businessToCustomer}"/>
+										<Label visible="{= ${savedProjects>audienceGroup} === 'businessToEmployee'}" text="{i18n>businessToEmployee}"/>
+										<Label visible="{= ${savedProjects>audienceGroup} === 'businessToBusiness'}" text="{i18n>businessToBusiness}"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+							<ColumnListItem>
+								<cells>
+									<HBox width="auto" justifyContent="SpaceBetween">
+										<ObjectIdentifier title="{i18n>users}"/>
+									</HBox>
+									<HBox>
+										<Label text="{savedProjects>additionalInformation/users}"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+							<ColumnListItem>
+								<cells>
+									<HBox width="auto" justifyContent="SpaceBetween">
+										<ObjectIdentifier title="{i18n>userGeography}"/>
+									</HBox>
+									<HBox>
+										<Label visible="{= ${savedProjects>additionalInformation/userGeography/0} === true}" text="regional;&#160;"/>
+										<Label visible="{= ${savedProjects>additionalInformation/userGeography/1} === true}" text="local;&#160;"/>
+										<Label visible="{= ${savedProjects>additionalInformation/userGeography/2} === true}" text="global;&#160;"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+							<ColumnListItem>
+								<cells>
+									<HBox width="auto" justifyContent="SpaceBetween">
+										<ObjectIdentifier title="{i18n>language}"/>
+									</HBox>
+									<HBox>
+										<Label text="{savedProjects>additionalInformation/language}"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+							<ColumnListItem>
+								<cells>
+									<HBox width="auto" justifyContent="SpaceBetween">
+										<ObjectIdentifier title="{i18n>devicePlatform}"/>
+									</HBox>
+									<HBox>
+										<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/0} === true}" text="iOS;&#160;"/>
+										<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/1} === true}" text="Android;&#160;"/>										
+										<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/2} === true}" text="Windows;&#160;"/>										
+										<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/3} === true}" text="Blackberry;&#160;"/>										
+										<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/4} === true}" text="Unknown;&#160;"/>										
+									</HBox>
+								</cells>
+							</ColumnListItem>
+							<ColumnListItem>
+								<cells>
+									<HBox width="auto" justifyContent="SpaceBetween">
+										<ObjectIdentifier title="{i18n>deviceFormFactor}"/>
+									</HBox>
+									<HBox>
+										<Label visible="{= ${savedProjects>additionalInformation/deviceFormFactor/0} === true}" text="Smartphone;&#160;"/>										
+										<Label visible="{= ${savedProjects>additionalInformation/deviceFormFactor/1} === true}" text="Tablet;&#160;"/>										
+										<Label visible="{= ${savedProjects>additionalInformation/deviceFormFactor/2} === true}" text="Laptop;&#160;"/>										
+									</HBox>
+								</cells>
+							</ColumnListItem>
+							<ColumnListItem>
+								<cells>
+									<HBox width="auto" justifyContent="SpaceBetween">
+										<ObjectIdentifier title="{i18n>plannedGoLive}"/>
+									</HBox>
+									<HBox>
+										<Label text="{savedProjects>additionalInformation/plannedGoLive}"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>
+							<ColumnListItem>
+								<cells>
+									<HBox width="auto" justifyContent="SpaceBetween">
+										<ObjectIdentifier title="{i18n>plannedEndOfLife}"/>
+									</HBox>
+									<HBox>
+										<Label text="{savedProjects>additionalInformation/plannedEOfLife}"/>
+									</HBox>
+								</cells>
+							</ColumnListItem>							
+						</items>
+					</Table>
+					<!--PDF Seite2-->					
+					<Text class="html2pdf__page-break"></Text>
 					<HBox width="auto" alignItems="Center" justifyContent="SpaceBetween">
 						<!--Überschrift Client Technology-->
 						<Title id="titleClientTechnology" text="{i18n>clientTechnologyLong}" titleStyle="H1" class="sapUiSmallMargin"/>
@@ -304,12 +417,11 @@
 							</ColumnListItem>
 						</items>
 					</Table>
-					<!--PDF Seite2-->
 					<!--Notes-->
-					<Text class="html2pdf__page-break"></Text>
 					<StandardListItem title="Notes" icon="sap-icon://notes" class="sapUISmallMargin"></StandardListItem>
-					<TextArea value="" rows="8" height="120px" width="1200px"/>
+					<TextArea value="" rows="8" height="120px" width="950px"/>
 					<!--PDF Seite 3-->
+					<Text class="html2pdf__page-break"></Text>
 					<!-- Einführung für Data Sync-->
 					<HBox width="100%" alignItems="Center" justifyContent="SpaceBetween">
 						<Title id="titleDataSynchronization" text="{i18n>dataSyncLong}" titleStyle="H1" class="sapUiSmallMargin"/>
@@ -540,7 +652,7 @@
 						</items>
 					</Table>
 					<StandardListItem title="Notes" icon="sap-icon://notes" class="sapUISmallMargin"></StandardListItem>
-					<TextArea value="" rows="8" height="200px" width="1200px"/>
+					<TextArea value="" rows="8" height="200px" width="950px"/>
 					<!--PDF seite5 -->
 					<Label class="html2pdf__page-break"></Label>
 					<!--Einführung für Backend -->
@@ -777,152 +889,7 @@
 								description="{path: 'savedProjects>iconTabs/operationsCenter/2', formatter: '.formatter.translate'}"/>
 						</layout:content>
 					</layout:Grid>
-					<!--<layout:VerticalLayout width="50%" alignItems="Center">
-						<layout:content>
-							<Panel>
-								
-								<headerToolbar>
-									<Toolbar>
-										<Title level="H3"
-											text="{i18n>clientTechnology} ({savedProjects>selectionProgress/clientTechnology/selectedFactors}/{savedProjects&gt;selectionProgress/clientTechnology/totalFactors}) {path: 'savedProjects>selectionProgress/clientTechnology/wholeRecommendation', formatter: '.formatter.translate'} "
-											icon="sap-icon://technical-object" class="sapThemeBrand-asBorderColor sapUISmallMargin"/>
-									</Toolbar>
-								</headerToolbar>
-								<FlexBox alignItems="Start" justifyContent="Center">
-									<items>
-										<Table noDataText="Drop column list items here and columns in the area above" id="__table0">
-											<items>
-												<ColumnListItem id="__item21">
-													<cells>
-														<Text text="{path: 'savedProjects>iconTabs/clientTechnology/0', formatter: '.formatter.translate'}"/>
-														<Text text="{path: 'savedProjects>decisionPercentage/clientTechnology/0'}" id="__text16"/>
-													</cells>
-												</ColumnListItem>
-												<ColumnListItem id="__item22">
-													<cells>
-														<Text text="{path: 'savedProjects>iconTabs/clientTechnology/1', formatter: '.formatter.translate'}"/>
-														<Text text="{path: 'savedProjects>decisionPercentage/clientTechnology/1'}"/>
-													</cells>
-												</ColumnListItem>
-												<ColumnListItem id="__item23">
-													<cells>
-														<Text text="{path: 'savedProjects>iconTabs/clientTechnology/2', formatter: '.formatter.translate'}"/>
-														<Text text="{path: 'savedProjects>decisionPercentage/clientTechnology/2'}"/>
-													</cells>
-												</ColumnListItem>
-											</items>
-											<columns>
-												<Column>
-													<header>
-														<Label text="Option"/>
-													</header>
-												</Column>
-												<Column >
-													<header>
-														<Label text="Percentage"/>
-													</header>
-												</Column>
-											</columns>
-										</Table>
-									</items>
-								</FlexBox>
-							</Panel>
-							<Panel>
-								<headerToolbar>
-									<Toolbar>
-										<Title level="H3"
-											text="{i18n>dataSync} ({savedProjects>selectionProgress/dataSync/selectedFactors}/{savedProjects&gt;selectionProgress/dataSync/totalFactors}) {path: 'savedProjects>selectionProgress/dataSync/wholeRecommendation', formatter: '.formatter.translate'}"
-											icon="sap-icon://synchronize" class="sapThemeBrand-asBorderColor"/>
-									</Toolbar>
-								</headerToolbar>
-								<FlexBox alignItems="Start" justifyContent="Center">
-									<items>
-										<Table noDataText="Drop column list items here and columns in the area above" id="__table1">
-											<items>
-												<ColumnListItem >
-													<cells>
-														<Text text="{path: 'savedProjects>iconTabs/dataSync/0', formatter: '.formatter.translate'}"/>
-														<Text text="{path: 'savedProjects>decisionPercentage/dataSync/0'}"/>
-													</cells>
-												</ColumnListItem>
-												<ColumnListItem >
-													<cells>
-														<Text text="{path: 'savedProjects>iconTabs/dataSync/1', formatter: '.formatter.translate'}"/>
-														<Text text="{path: 'savedProjects>decisionPercentage/dataSync/1'}"/>
-													</cells>
-												</ColumnListItem>
-												<ColumnListItem >
-													<cells>
-														<Text text="{path: 'savedProjects>iconTabs/dataSync/2', formatter: '.formatter.translate'}"/>
-														<Text text="{path: 'savedProjects>decisionPercentage/dataSync/2'}"/>
-													</cells>
-												</ColumnListItem>
-											</items>
-											<columns>
-												<Column>
-													<header>
-														<Label text="Option"/>
-													</header>
-												</Column>
-												<Column >
-													<header>
-														<Label text="Percentage"/>
-													</header>
-												</Column>
-											</columns>
-										</Table>
-									</items>
-								</FlexBox>
-							</Panel>
-							<Panel>
-								<headerToolbar>
-									<Toolbar>
-										<Title level="H3"
-											text="{i18n>operationsCenter} ({savedProjects>selectionProgress/operationsCenter/selectedFactors}/{savedProjects&gt;selectionProgress/operationsCenter/totalFactors}) {path: 'savedProjects>selectionProgress/operationsCenter/wholeRecommendation', formatter: '.formatter.translate'}"
-											icon="sap-icon://cloud" class="sapThemeBrand-asBorderColor"/>
-									</Toolbar>
-								</headerToolbar>
-								<FlexBox alignItems="Start" justifyContent="Center">
-									<items>
-										<Table noDataText="Drop column list items here and columns in the area above" id="__table2">
-											<items>
-												<ColumnListItem >
-													<cells>
-														<Text text="{path: 'savedProjects>iconTabs/operationsCenter/0', formatter: '.formatter.translate'}"/>
-														<Text text="{path: 'savedProjects>decisionPercentage/operationsCenter/0'}"/>
-													</cells>
-												</ColumnListItem>
-												<ColumnListItem >
-													<cells>
-														<Text text="{path: 'savedProjects>iconTabs/operationsCenter/1', formatter: '.formatter.translate'}"/>
-														<Text text="{path: 'savedProjects>decisionPercentage/operationsCenter/1'}"/>
-													</cells>
-												</ColumnListItem>
-												<ColumnListItem >
-													<cells>
-														<Text text="{path: 'savedProjects>iconTabs/operationsCenter/2', formatter: '.formatter.translate'}"/>
-														<Text text="{path: 'savedProjects>decisionPercentage/operationsCenter/2'}"/>
-													</cells>
-												</ColumnListItem>
-											</items>
-											<columns>
-												<Column>
-													<header>
-														<Label text="Option"/>
-													</header>
-												</Column>
-												<Column >
-													<header>
-														<Label text="Percentage"/>
-													</header>
-												</Column>
-											</columns>
-										</Table>
-									</items>
-								</FlexBox>
-							</Panel>
-						</layout:content>
-					</layout:VerticalLayout>-->
+				
 				</content>
 			</Page>
 		</pages>
