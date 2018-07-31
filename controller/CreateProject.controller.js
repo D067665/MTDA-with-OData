@@ -47,17 +47,15 @@ sap.ui.define([
 			var oDeviceModel = this.getOwnerComponent().getModel("device");
 			var bDevice = oDeviceModel.getProperty("/system/phone");
 			var oFragment = sap.ui.xmlfragment("M4A.fragment.audienceGroup", this);
-		
-			
+
 			if (bDevice === true) {
 
 				this.byId("changeModeHBox").destroy();
 				this.byId("audienceGroup").destroy();
 				this.byId("audienceGroupVBox").addItem(oFragment);
-				
 
 			}
-		
+
 		},
 		_onNavBackPress: function(oEvent) {
 			this._getODataService();
@@ -99,7 +97,7 @@ sap.ui.define([
 			iconTabBar.setSelectedKey(items[items.indexOf(currentItem) - 2].getKey());
 		},
 		_onFooterContinueButtonPress: function(oEvent) {
-			
+
 			var iconTabBar = this._getIconTabBar();
 			var selectedKey = iconTabBar.getSelectedKey();
 			var items = iconTabBar.getItems();
@@ -126,6 +124,7 @@ sap.ui.define([
 				index: path,
 				selectedTab: selectedTab
 			});
+
 			/*var printFragment = sap.ui.xmlfragment("M4A.fragment.PrintPDF", this);
 				printFragment.addEventDelegate({
 					"onAfterRendering": function(oEvent) {
@@ -983,28 +982,35 @@ sap.ui.define([
 		},
 
 		_loadSavedValues: function(viewBindingPath) {
-			var savedProjectsModel = this._getSavedProjectsModel();
-			var factorCatalogModel = this._getFactorCatalogModel();
-			var projectValues = savedProjectsModel.getProperty(viewBindingPath);
-			for (var category in projectValues) {
-				var categoryFactors = factorCatalogModel.getProperty("/" + category);
-				if (projectValues.hasOwnProperty(category) && categoryFactors !== undefined && category !== "additionalInformation") {
-					for (var i = 0; i < categoryFactors.length; i++) {
-						var factorName = categoryFactors[i].factor;
-						var selectedOption = projectValues[category][factorName].selectionOptions.key;
-						var selectedWeight = projectValues[category][factorName].importance.key;
-						factorCatalogModel.setProperty("/" + category + "/" + i + "/currentSelection", selectedOption);
-						factorCatalogModel.setProperty("/" + category + "/" + i + "/currentWeight", selectedWeight);
+
+			var odataModel = this.getView().getModel("savedProjectsOData");
+			var savedProjectsModelPromise = this._getSavedProjectsModelPromise(odataModel);
+			savedProjectsModelPromise.then(function(savedProjectsModel) {
+				var factorCatalogModel = this._getFactorCatalogModel();
+				var projectValues = savedProjectsModel.getProperty(viewBindingPath);
+				for (var category in projectValues) {
+					var categoryFactors = factorCatalogModel.getProperty("/" + category);
+					if (projectValues.hasOwnProperty(category) && categoryFactors !== undefined && category !== "additionalInformation") {
+						for (var i = 0; i < categoryFactors.length; i++) {
+							var factorName = categoryFactors[i].factor;
+							var selectedOption = projectValues[category][factorName].selectionOptions.key;
+							var selectedWeight = projectValues[category][factorName].importance.key;
+							factorCatalogModel.setProperty("/" + category + "/" + i + "/currentSelection", selectedOption);
+							factorCatalogModel.setProperty("/" + category + "/" + i + "/currentWeight", selectedWeight);
+						}
 					}
+					//initialize Model
+					this._updateResults("clientTechnology");
+					this._updateResults("dataSync");
+					this._updateResults("operationsCenter");
+					this._updateSelectionProgress("clientTechnology");
+					this._updateSelectionProgress("dataSync");
+					this._updateSelectionProgress("operationsCenter");
+					this._getODataService();
 				}
-				//initialize Model
-				this._updateResults("clientTechnology");
-				this._updateResults("dataSync");
-				this._updateResults("operationsCenter");
-				this._updateSelectionProgress("clientTechnology");
-				this._updateSelectionProgress("dataSync");
-				this._updateSelectionProgress("operationsCenter");
-			}
+
+			}.bind(this));
+
 		},
 		_loadCategory: function(viewBindingPath, category) {
 			var savedProjectsModel = this._getSavedProjectsModel();
@@ -1538,9 +1544,9 @@ sap.ui.define([
 			savedProjectsModel.setProperty(viewBindingPath + "/status", wholeStatus);
 			savedProjectsModel.setProperty(this.getView().getBindingContext("savedProjects") + "/lastChangedDate", new Date());
 			//don't store changes in storage anymore but in odata service
-		   /*	var savedProjects = savedProjectsModel.getJSON();
+			/*	var savedProjects = savedProjectsModel.getJSON();
 			storage.save("savedProjects", savedProjects);*/
-			
+
 			//this._getODataService();
 
 			this._updateRecommendation(category);
@@ -1744,7 +1750,7 @@ sap.ui.define([
 				return this._oIconTabBar;
 			}
 		},
-		_getSavedProjectsModel: function() {
+			_getSavedProjectsModel: function() {
 			var oSavedProjectsModel = this._oSavedProjectsModel;
 			if (oSavedProjectsModel === null) {
 				this._oSavedProjectsModel = this.getView().getModel("savedProjects");
@@ -1752,6 +1758,29 @@ sap.ui.define([
 			} else {
 				return oSavedProjectsModel;
 			}
+		},
+			_getSavedProjectsModelPromise: function(odataModel) {
+			var oDeferred = $.Deferred();
+			var oSavedProjectsOData = this.getView().getModel("savedProjectsOData");
+
+			var oSavedProjectsModel = this.getView().getModel("savedProjects");
+		
+
+				odataModel.metadataLoaded().then(function() {
+					//setTimeout(function() {
+						
+						oSavedProjectsOData.attachEventOnce("requestCompleted",function(){
+							oDeferred.resolve(oSavedProjectsModel);
+							
+						});
+						
+
+				//	}.bind(this), 1000);
+
+				}.bind(this));
+
+		
+			return oDeferred.promise();
 		},
 		_getFactorCatalogModel: function() {
 			var oFactorCatalogModel = this._oFactorCatalogModel;
@@ -1763,7 +1792,7 @@ sap.ui.define([
 			}
 		},
 		_getODataService: function() {
-			debugger;
+
 			var oDataModel = this.getOwnerComponent().getModel("savedProjectsOData");
 			oDataModel.metadataLoaded().then(this._updateODataService.bind(this, oDataModel));
 		},
@@ -1787,18 +1816,17 @@ sap.ui.define([
 			var sProjectToUpdate = JSON.stringify(oProjectToUpdate);
 			var oEntry = {};
 			oEntry.PROJECT = sProjectToUpdate;
-			oDataModel.update("/SavedProjectsOData(" + iIdProjectToUpdate + ")", oEntry ,{
+			oDataModel.update("/SavedProjectsOData(" + iIdProjectToUpdate + ")", oEntry, {
 				success: success,
-				error: error});
-				
-			
+				error: error
+			});
+
 			/*{
 				oEntry: oEntry,
 				success: success,
 				error: error
 			});*/
 
-		
-	}
-});
+		}
+	});
 });

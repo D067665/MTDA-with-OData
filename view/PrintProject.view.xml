@@ -3,7 +3,7 @@
 	controllerName="M4A.controller.PrintProject">
 	<App>
 		<pages>
-			<Page title="{i18n>appTitle1234}" titleStyle="H1" id="printProjectPage" showHeader="true" showFooter="true" showNavButton="false" width="auto"
+			<Page title="{i18n>appTitle}" titleStyle="H1" id="printProjectPage" showHeader="true" showFooter="true" showNavButton="false" width="auto"
 				class="sapUiResponsiveContentPadding" >
 				<content>
 					<Table id="tableTest" width="auto" class="sapUiSmallMargin">
