@@ -3,138 +3,66 @@
 	controllerName="M4A.controller.PrintProject">
 	<App>
 		<pages>
-			<Page title="{i18n>appTitle}" titleStyle="H1" id="printProjectPage" showHeader="true" showFooter="true" showNavButton="false" width="auto"
-				class="sapUiResponsiveContentPadding" >
+			<Page title="{i18n>appTitle123456789123}" titleStyle="H1" id="printProjectPage" showHeader="true" showFooter="true" showNavButton="false"
+				width="auto" class="sapUiResponsiveContentPadding">
 				<content>
-					<Table id="tableTest" width="auto" class="sapUiSmallMargin">
-						<columns>
-							<Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
-								<header>
-									<Title text="{i18n>applicationName}: {savedProjects>applicationName}" width="auto" wrapping="false" textAlign="Begin" textDirection="Inherit" titleStyle="H2"/>
-								</header>
-								<footer/>
-							</Column>
-							<Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
-								<header>
-									<Text text=" " width="auto" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-								</header>
-								<footer/>
-							</Column>
-						</columns>
-						<items>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{i18n>useCase}"/>
-									</HBox>
-									<HBox>
-										<Label text="{savedProjects>additionalInformation/useCase}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{i18n>owner}"/>
-									</HBox>
-									<HBox>
-										<Label text="{savedProjects>additionalInformation/owner}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{i18n>audienceGroup}"/>
-									</HBox>
-									<HBox>
-										<Label visible="{= ${savedProjects>audienceGroup} === 'businessToCustomer'}" text="{i18n>businessToCustomer}"/>
-										<Label visible="{= ${savedProjects>audienceGroup} === 'businessToEmployee'}" text="{i18n>businessToEmployee}"/>
-										<Label visible="{= ${savedProjects>audienceGroup} === 'businessToBusiness'}" text="{i18n>businessToBusiness}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{i18n>users}"/>
-									</HBox>
-									<HBox>
-										<Label text="{savedProjects>additionalInformation/users}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{i18n>userGeography}"/>
-									</HBox>
-									<HBox>
-										<Label visible="{= ${savedProjects>additionalInformation/userGeography/0} === true}" text="regional;&#160;"/>
-										<Label visible="{= ${savedProjects>additionalInformation/userGeography/1} === true}" text="local;&#160;"/>
-										<Label visible="{= ${savedProjects>additionalInformation/userGeography/2} === true}" text="global;&#160;"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{i18n>language}"/>
-									</HBox>
-									<HBox>
-										<Label text="{savedProjects>additionalInformation/language}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{i18n>devicePlatform}"/>
-									</HBox>
-									<HBox>
-										<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/0} === true}" text="iOS;&#160;"/>
-										<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/1} === true}" text="Android;&#160;"/>										
-										<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/2} === true}" text="Windows;&#160;"/>										
-										<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/3} === true}" text="Blackberry;&#160;"/>										
-										<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/4} === true}" text="Unknown;&#160;"/>										
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{i18n>deviceFormFactor}"/>
-									</HBox>
-									<HBox>
-										<Label visible="{= ${savedProjects>additionalInformation/deviceFormFactor/0} === true}" text="Smartphone;&#160;"/>										
-										<Label visible="{= ${savedProjects>additionalInformation/deviceFormFactor/1} === true}" text="Tablet;&#160;"/>										
-										<Label visible="{= ${savedProjects>additionalInformation/deviceFormFactor/2} === true}" text="Laptop;&#160;"/>										
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{i18n>plannedGoLive}"/>
-									</HBox>
-									<HBox>
-										<Label text="{savedProjects>additionalInformation/plannedGoLive}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{i18n>plannedEndOfLife}"/>
-									</HBox>
-									<HBox>
-										<Label text="{savedProjects>additionalInformation/plannedEOfLife}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>							
-						</items>
-					</Table>
-					<!--PDF Seite2-->					
+					<VBox id="printTitle" class="sapUiSmallMargin">
+						<Title text="{i18n>applicationName}: {savedProjects>applicationName}" titleStyle="H2"/>
+						<HBox width="auto" justifyContent="Start">
+							<ObjectIdentifier title="{i18n>useCase}: "/>
+							<Label text=" {savedProjects>additionalInformation/useCase}"/>
+						</HBox>
+						<HBox width="auto" justifyContent="Start">
+							<ObjectIdentifier title="{i18n>owner}: "/>
+							<Label text="{savedProjects>additionalInformation/owner}"/>
+						</HBox>
+						<HBox width="auto" justifyContent="Start">
+							<ObjectIdentifier title="{i18n>audienceGroup}: "/>
+							<Label visible="{= ${savedProjects>audienceGroup} === 'businessToCustomer'}" text="{i18n>businessToCustomer}"/>
+							<Label visible="{= ${savedProjects>audienceGroup} === 'businessToEmployee'}" text="{i18n>businessToEmployee}"/>
+							<Label visible="{= ${savedProjects>audienceGroup} === 'businessToBusiness'}" text="{i18n>businessToBusiness}"/>
+						</HBox>
+						<HBox width="auto" justifyContent="Start">
+							<ObjectIdentifier title="{i18n>users}: "/>
+							<Label text="{savedProjects>additionalInformation/users}"/>
+						</HBox>
+						<HBox width="auto" justifyContent="Start">
+							<ObjectIdentifier title="{i18n>userGeography}: "/>
+							<Label visible="{= ${savedProjects>additionalInformation/userGeography/0} === true}" text="regional;&#160;"/>
+							<Label visible="{= ${savedProjects>additionalInformation/userGeography/1} === true}" text="local;&#160;"/>
+							<Label visible="{= ${savedProjects>additionalInformation/userGeography/2} === true}" text="global;&#160;"/>
+						</HBox>
+						
+						<HBox width="auto" justifyContent="Start">
+							<ObjectIdentifier title="{i18n>language}: "/>
+							<Label text="{savedProjects>additionalInformation/language}"/>
+						</HBox>
+						<HBox width="auto" justifyContent="Start">
+							<ObjectIdentifier title="{i18n>devicePlatform}: "/>
+							<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/0} === true}" text="iOS;&#160;"/>
+							<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/1} === true}" text="Android;&#160;"/>
+							<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/2} === true}" text="Windows;&#160;"/>
+							<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/3} === true}" text="Blackberry;&#160;"/>
+							<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/4} === true}" text="Unknown;&#160;"/>
+						</HBox>
+					
+						<HBox width="auto" justifyContent="Start">
+							<ObjectIdentifier title="{i18n>deviceFormFactor}: "/>
+							<Label visible="{= ${savedProjects>additionalInformation/deviceFormFactor/0} === true}" text="Smartphone;&#160;"/>
+							<Label visible="{= ${savedProjects>additionalInformation/deviceFormFactor/1} === true}" text="Tablet;&#160;"/>
+							<Label visible="{= ${savedProjects>additionalInformation/deviceFormFactor/2} === true}" text="Laptop;&#160;"/>
+						</HBox>
+					
+						<HBox width="auto" justifyContent="Start">
+							<ObjectIdentifier title="{i18n>plannedGoLive}: "/>
+							<Label text="{savedProjects>additionalInformation/plannedGoLive}"/>
+						</HBox>
+						<HBox width="auto" justifyContent="Start">
+							<ObjectIdentifier title="{i18n>plannedEndOfLife}: "/>
+							<Label text="{savedProjects>additionalInformation/plannedEndOfLife}"/>
+						</HBox>
+					</VBox>
+					<!--PDF Seite2-->
 					<Text class="html2pdf__page-break"></Text>
 					<HBox width="auto" alignItems="Center" justifyContent="SpaceBetween">
 						<!--Überschrift Client Technology-->
@@ -363,58 +291,6 @@
 									</HBox>
 								</cells>
 							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{path: 'factorCatalog>/clientTechnology/15/factor', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/clientTechnology/15/currentSelection', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/clientTechnology/15/currentWeight', formatter: '.formatter.translate'}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{path: 'factorCatalog>/clientTechnology/16/factor', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/clientTechnology/16/currentSelection', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/clientTechnology/16/currentWeight', formatter: '.formatter.translate'}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{path: 'factorCatalog>/clientTechnology/17/factor', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/clientTechnology/17/currentSelection', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/clientTechnology/17/currentWeight', formatter: '.formatter.translate'}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{path: 'factorCatalog>/clientTechnology/18/factor', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/clientTechnology/18/currentSelection', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/clientTechnology/18/currentWeight', formatter: '.formatter.translate'}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
 						</items>
 					</Table>
 					<!--Notes-->
@@ -596,59 +472,6 @@
 									</HBox>
 								</cells>
 							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{path: 'factorCatalog>/dataSync/11/factor', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/dataSync/11/currentSelection', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/dataSync/11/currentWeight', formatter: '.formatter.translate'}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<!--Seite 4-->
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{path: 'factorCatalog>/dataSync/12/factor', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/dataSync/12/currentSelection', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/dataSync/12/currentWeight', formatter: '.formatter.translate'}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{path: 'factorCatalog>/dataSync/13/factor', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/dataSync/13/currentSelection', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/dataSync/13/currentWeight', formatter: '.formatter.translate'}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{path: 'factorCatalog>/dataSync/14/factor', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/dataSync/14/currentSelection', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/dataSync/14/currentWeight', formatter: '.formatter.translate'}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
 						</items>
 					</Table>
 					<StandardListItem title="Notes" icon="sap-icon://notes" class="sapUISmallMargin"></StandardListItem>
@@ -791,58 +614,6 @@
 									</HBox>
 								</cells>
 							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{path: 'factorCatalog>/operationsCenter/8/factor', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/operationsCenter/8/currentSelection', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/operationsCenter/8/currentWeight', formatter: '.formatter.translate'}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{path: 'factorCatalog>/operationsCenter/9/factor', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/operationsCenter/9/currentSelection', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/operationsCenter/9/currentWeight', formatter: '.formatter.translate'}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{path: 'factorCatalog>/operationsCenter/10/factor', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/operationsCenter/10/currentSelection', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/operationsCenter/10/currentWeight', formatter: '.formatter.translate'}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
-							<ColumnListItem>
-								<cells>
-									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{path: 'factorCatalog>/operationsCenter/11/factor', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/operationsCenter/11/currentSelection', formatter: '.formatter.translate'}"/>
-									</HBox>
-									<HBox>
-										<Label text="{path: 'factorCatalog>/operationsCenter/11/currentWeight', formatter: '.formatter.translate'}"/>
-									</HBox>
-								</cells>
-							</ColumnListItem>
 						</items>
 					</Table>
 					<!--Results-->
@@ -889,7 +660,6 @@
 								description="{path: 'savedProjects>iconTabs/operationsCenter/2', formatter: '.formatter.translate'}"/>
 						</layout:content>
 					</layout:Grid>
-				
 				</content>
 			</Page>
 		</pages>
