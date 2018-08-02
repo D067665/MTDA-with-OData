@@ -985,7 +985,37 @@ sap.ui.define([
 
 			var odataModel = this.getView().getModel("savedProjectsOData");
 			var savedProjectsModelPromise = this._getSavedProjectsModelPromise(odataModel);
-			savedProjectsModelPromise.then(function(savedProjectsModel) {
+			var savedProjectsModel = this.getView().getModel("savedProjects");
+
+			if (jQuery.isEmptyObject(savedProjectsModel.getData())) {
+				//wo wird hier savedProjects neu deklariert?
+				savedProjectsModelPromise.then(function(savedProjectsModel) {
+					var factorCatalogModel = this._getFactorCatalogModel();
+					var projectValues = savedProjectsModel.getProperty(viewBindingPath);
+					for (var category in projectValues) {
+						var categoryFactors = factorCatalogModel.getProperty("/" + category);
+						if (projectValues.hasOwnProperty(category) && categoryFactors !== undefined && category !== "additionalInformation") {
+							for (var i = 0; i < categoryFactors.length; i++) {
+								var factorName = categoryFactors[i].factor;
+								var selectedOption = projectValues[category][factorName].selectionOptions.key;
+								var selectedWeight = projectValues[category][factorName].importance.key;
+								factorCatalogModel.setProperty("/" + category + "/" + i + "/currentSelection", selectedOption);
+								factorCatalogModel.setProperty("/" + category + "/" + i + "/currentWeight", selectedWeight);
+							}
+						}
+						//initialize Model
+						this._updateResults("clientTechnology");
+						this._updateResults("dataSync");
+						this._updateResults("operationsCenter");
+						this._updateSelectionProgress("clientTechnology");
+						this._updateSelectionProgress("dataSync");
+						this._updateSelectionProgress("operationsCenter");
+						//this._getODataService();
+					}
+
+				}.bind(this));
+			} else {
+				savedProjectsModel = this._getSavedProjectsModel();
 				var factorCatalogModel = this._getFactorCatalogModel();
 				var projectValues = savedProjectsModel.getProperty(viewBindingPath);
 				for (var category in projectValues) {
@@ -1006,10 +1036,9 @@ sap.ui.define([
 					this._updateSelectionProgress("clientTechnology");
 					this._updateSelectionProgress("dataSync");
 					this._updateSelectionProgress("operationsCenter");
-					this._getODataService();
 				}
 
-			}.bind(this));
+			}
 
 		},
 		_loadCategory: function(viewBindingPath, category) {
@@ -1050,6 +1079,7 @@ sap.ui.define([
 			this._updateSelectionProgress(category);
 		},
 		_onRouteMatched: function(oEvent) {
+
 			var oArgs, oView;
 			oArgs = oEvent.getParameter("arguments");
 			oView = this.getView();
@@ -1750,7 +1780,7 @@ sap.ui.define([
 				return this._oIconTabBar;
 			}
 		},
-			_getSavedProjectsModel: function() {
+		_getSavedProjectsModel: function() {
 			var oSavedProjectsModel = this._oSavedProjectsModel;
 			if (oSavedProjectsModel === null) {
 				this._oSavedProjectsModel = this.getView().getModel("savedProjects");
@@ -1759,27 +1789,25 @@ sap.ui.define([
 				return oSavedProjectsModel;
 			}
 		},
-			_getSavedProjectsModelPromise: function(odataModel) {
+		_getSavedProjectsModelPromise: function(odataModel) {
 			var oDeferred = $.Deferred();
+			//warum nochmal oData wenn mitgegeben?
 			var oSavedProjectsOData = this.getView().getModel("savedProjectsOData");
 
 			var oSavedProjectsModel = this.getView().getModel("savedProjects");
-		
 
-				odataModel.metadataLoaded().then(function() {
-					//setTimeout(function() {
-						
-						oSavedProjectsOData.attachEventOnce("requestCompleted",function(){
-							oDeferred.resolve(oSavedProjectsModel);
-							
-						});
-						
+			odataModel.metadataLoaded().then(function() {
+				//setTimeout(function() {
+
+				oSavedProjectsOData.attachEvent("requestCompleted", function() {
+					oDeferred.resolve(oSavedProjectsModel);
+
+				});
 
 				//	}.bind(this), 1000);
 
-				}.bind(this));
+			}.bind(this));
 
-		
 			return oDeferred.promise();
 		},
 		_getFactorCatalogModel: function() {
