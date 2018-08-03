@@ -21,82 +21,59 @@ sap.ui.define([
 
 			var oRouter = this.getRouter();
 
-			
-
-			/*this.getView("printProjectPage").addEventDelegate({
-				"onAfterRendering": function(){
-						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-						//oRoter.navTo("loadProject");
-						oRouter.navTo("createProject", {
-        		projectIndex: this.globalVariableIndex
-        		
-                	});
-				}
-			},this);  */
-			//oRouter.attachBeforeRouteMatched(this.printPDF, this);
 			oRouter.getRoute("printProject").attachMatched(this.onRouteMatched, this);
 
 		},
 
 		onRouteMatched: function(oEvent) {
 			//getProject Index
-			//test test test
-		/*	var view = this.getView().byId("printProjectPage");
-			view.setBusy(true);*/
-				var oArgs = oEvent.getParameter("arguments");
+			
+			var oArgs = oEvent.getParameter("arguments");
 
-				this.getView().bindElement({
-					path: "/" + oArgs.index,
-					model: "savedProjects"
-				});
+			this.getView().bindElement({
+				path: "/" + oArgs.index,
+				model: "savedProjects"
+			});
 
-				this.globalVariableIndex = oArgs.index;
-				this.globalSelectedIconTab = this.getView().getModel("savedProjects").getProperty("/" + this.globalVariableIndex +
-					"/selectedIconTab");
+			this.globalVariableIndex = oArgs.index;
+			this.globalSelectedIconTab = this.getView().getModel("savedProjects").getProperty("/" + this.globalVariableIndex +
+				"/selectedIconTab");
 
-				setTimeout(function() {
+			setTimeout(function() {
+
 					
-					// instantiate dialog
-					/*if (!this._dialog) {
-						this._dialog = sap.ui.xmlfragment("M4A.fragment.BusyWhilePrintDialog", this);
-						this.getView().addDependent(this._dialog);
-					}*/
 
-			//open dialog
-			/*jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._dialog);
-			this._dialog.open();*/
+					//printPDF
+					var element = this.getView().byId("printProjectPage").getDomRef().innerHTML;
 
-			//printPDF
-			var element = this.getView().byId("printProjectPage").getDomRef().innerHTML;
+					var opt = {
+						margin: 0.5,
+						filename: 'MobileTechnologyDecisionAdvisor.pdf',
 
-			var opt = {
-				margin: 0.5,
-				filename: 'MobileTechnologyDecisionAdvisor.pdf',
+						html2canvas: {
+							scale: 2
+						},
+						jsPDF: {
+							unit: 'in',
+							format: 'letter',
+							orientation: 'landscape'
+						}
+					};
+					var worker = html2pdf().from(element).set(opt).save();
 
-				html2canvas: {
-					scale: 2
-				},
-				jsPDF: {
-					unit: 'in',
-					format: 'letter',
-					orientation: 'landscape'
-				}
-			};
-			var worker = html2pdf().from(element).set(opt).save();
-			
-			//var oHistory = History.getInstance();
-			
-			//	window.history.go(-1);
+					//var oHistory = History.getInstance();
 
-			this._navBackToOverview(oEvent);
-			//this._dialog.close(oEvent);
+					//	window.history.go(-1);
 
-		}.bind(this),
-		100);
+					this._navBackToOverview(oEvent);
+					//this._dialog.close(oEvent);
+
+				}.bind(this),
+				100);
 
 		},
-		
-			_onDialogClosed: function() {
+
+		_onDialogClosed: function() {
 			this._navBackToOverview();
 		},
 

@@ -432,7 +432,7 @@
 				</content>
 				<footer>
 					<OverflowToolbar>
-						<Button text="{i18n>version}" press="_onFooterVersionButtonPress" class="sapUiHideOnPhone"/>
+						
 						<Button text="{i18n>reset}" visible="{= ${savedProjects>selectedIconTab} !=='overview'}" press="_onFooterResetButtonPress"/>
 						<Button id="exportPDFButton3" icon="sap-icon://download" press="_onPressNavPrint"
 							ariaDescribedBy="defaultButtonDescription genericButtonDescription" class="addSpaceBetweenButtons"/>

@@ -141,7 +141,7 @@ sap.ui.define([
 					};
 					var error = function(err) {
 						console.log(err);
-						debugger;
+
 					};
 					var oUserModel = that.getOwnerComponent().getModel("userapi");
 
@@ -221,8 +221,7 @@ sap.ui.define([
 				//get Object of savedProjects Model which should be duplicated
 				var oModelItemToClone = savedProjectsModel.getProperty(sPath);
 				var soldProjectName = oModelItemToClone.applicationName;
-				//var oModelItemCloned = oModelItemToClone;
-				//var oModelItemCloned = JSON.parse(JSON.stringify(oModelItemToClone)); 
+
 				var oModelItemCloned = jQuery.extend(true, {}, oModelItemToClone);
 				oModelItemCloned.applicationName = soldProjectName + " - Copy";
 				oModelItemCloned.projectId = "";
@@ -235,9 +234,8 @@ sap.ui.define([
 				var inewProjectIndex = savedProjects.push(oModelItemCloned) - 1; //wenn nicht stringify
 				var snewProjectIndex = JSON.stringify(inewProjectIndex);
 
-				//	savedProjectsModel.setProperty(viewBindingPath + "/" + category + "/" + "operationsCost" + "/" + type, selectedValue);
 				//save the duplicate in the savedProjectsModel
-				//savedProjectsModel.setProperty("/" + newProjectIndex, oModelItemCloned);
+
 				savedProjectsModel.setData(savedProjects);
 				var sModelItemCloned = JSON.stringify(oModelItemCloned);
 
@@ -263,11 +261,10 @@ sap.ui.define([
 					/*	var updateSavedprojects = savedProjectsModel.setProperty(viewBindingPath + "/additionalInformation",
 								aAdditionalInformationSavedProject);*/
 
-					debugger;
 				};
 				var error = function(err) {
 					console.log(err);
-					debugger;
+
 				};
 				var oContext = this.getOwnerComponent().getModel("savedProjectsOData").createEntry("/SavedProjectsOData", {
 					properties: oProperties,

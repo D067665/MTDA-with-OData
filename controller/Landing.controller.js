@@ -18,7 +18,7 @@ sap.ui.define([
 
 			}
 		},
-		//test
+		
 
 		_onNavToCreateProject: function(oEvent) {
 			var that = this;
@@ -85,7 +85,7 @@ sap.ui.define([
 			this.getRouter().navTo("loadProject");
 		},
 		_onDialogInstructionPress: function(oEvent) {
-			debugger;
+			
 			var i18nModel = this.getView().getModel("i18n");
 			var newText = "instruction";
 
@@ -101,6 +101,7 @@ sap.ui.define([
 			return this.dialog;
 		},
 		_onDialogIncludedEnhancementsPress: function(oEvent) {
+			
 			this._getIncludedEnhancementsDialog().open();
 
 		},

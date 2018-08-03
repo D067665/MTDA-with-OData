@@ -3,8 +3,8 @@
 	controllerName="M4A.controller.PrintProject">
 	<App>
 		<pages>
-			<Page title="{i18n>appTitle123456789123}" titleStyle="H1" id="printProjectPage" showHeader="true" showFooter="true" showNavButton="false"
-				width="auto" class="sapUiResponsiveContentPadding">
+			<Page title="{i18n>appTitle}" titleStyle="H1" id="printProjectPage" showHeader="true" showFooter="true" showNavButton="false" width="auto"
+				class="sapUiResponsiveContentPadding">
 				<content>
 					<VBox id="printTitle" class="sapUiSmallMargin">
 						<Title text="{i18n>applicationName}: {savedProjects>applicationName}" titleStyle="H2"/>
@@ -32,7 +32,6 @@
 							<Label visible="{= ${savedProjects>additionalInformation/userGeography/1} === true}" text="local;&#160;"/>
 							<Label visible="{= ${savedProjects>additionalInformation/userGeography/2} === true}" text="global;&#160;"/>
 						</HBox>
-						
 						<HBox width="auto" justifyContent="Start">
 							<ObjectIdentifier title="{i18n>language}: "/>
 							<Label text="{savedProjects>additionalInformation/language}"/>
@@ -45,14 +44,12 @@
 							<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/3} === true}" text="Blackberry;&#160;"/>
 							<Label visible="{= ${savedProjects>additionalInformation/devicePlatform/4} === true}" text="Unknown;&#160;"/>
 						</HBox>
-					
 						<HBox width="auto" justifyContent="Start">
 							<ObjectIdentifier title="{i18n>deviceFormFactor}: "/>
 							<Label visible="{= ${savedProjects>additionalInformation/deviceFormFactor/0} === true}" text="Smartphone;&#160;"/>
 							<Label visible="{= ${savedProjects>additionalInformation/deviceFormFactor/1} === true}" text="Tablet;&#160;"/>
 							<Label visible="{= ${savedProjects>additionalInformation/deviceFormFactor/2} === true}" text="Laptop;&#160;"/>
 						</HBox>
-					
 						<HBox width="auto" justifyContent="Start">
 							<ObjectIdentifier title="{i18n>plannedGoLive}: "/>
 							<Label text="{savedProjects>additionalInformation/plannedGoLive}"/>
@@ -63,7 +60,6 @@
 						</HBox>
 					</VBox>
 					<!--PDF Seite2-->
-					<Text class="html2pdf__page-break"></Text>
 					<HBox width="auto" alignItems="Center" justifyContent="SpaceBetween">
 						<!--Überschrift Client Technology-->
 						<Title id="titleClientTechnology" text="{i18n>clientTechnologyLong}" titleStyle="H1" class="sapUiSmallMargin"/>
@@ -74,7 +70,7 @@
 						</HBox>
 					</HBox>
 					<!--Tabelle für client technologies-->
-					<Table id="tableClientTechnologyFactors" width="auto" class="sapUiSmallMargin">
+					<Table id="tableClientTechnologyFactors" width="100%" class="sapUiSmallMargin">
 						<columns>
 							<Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
 								<header>
@@ -99,7 +95,7 @@
 							<ColumnListItem>
 								<cells>
 									<HBox width="auto" justifyContent="SpaceBetween">
-										<ObjectIdentifier title="{path: 'factorCatalog>/clientTechnology/0/factor', formatter: '.formatter.translate'}"/>
+										<ObjectIdentifier title="{path: 'factorCatalog>/clientTechnology/0/factor', formatter: '.formatter.translate'}" class="printText"/>
 									</HBox>
 									<HBox>
 										<Label text="{path: 'factorCatalog>/clientTechnology/0/currentSelection', formatter: '.formatter.translate'}"/>
@@ -296,6 +292,10 @@
 					<!--Notes-->
 					<StandardListItem title="Notes" icon="sap-icon://notes" class="sapUISmallMargin"></StandardListItem>
 					<TextArea value="" rows="8" height="120px" width="950px"/>
+					<!-- page Info -->
+					<HBox justifyContent="End">
+						<Label text="Seite 2" class="sapUiSmallMargin" design="Bold" textAlign="Right"/>
+					</HBox>
 					<!--PDF Seite 3-->
 					<Text class="html2pdf__page-break"></Text>
 					<!-- Einführung für Data Sync-->
@@ -474,10 +474,10 @@
 							</ColumnListItem>
 						</items>
 					</Table>
-					<StandardListItem title="Notes" icon="sap-icon://notes" class="sapUISmallMargin"></StandardListItem>
-					<TextArea value="" rows="8" height="200px" width="950px"/>
+					<HBox justifyContent="End">
+						<Label text="Seite 3" class="sapUiSmallMargin" design="Bold" textAlign="Right"/>
+					</HBox>
 					<!--PDF seite5 -->
-					<Label class="html2pdf__page-break"></Label>
 					<!--Einführung für Backend -->
 					<HBox width="100%" alignItems="Center" justifyContent="SpaceBetween">
 						<Title id="titleOperationsCenter" text="{i18n>operationsCenterLong}" titleStyle="H1" class="sapUiSmallMargin"/>
@@ -616,6 +616,20 @@
 							</ColumnListItem>
 						</items>
 					</Table>
+					<!-- to put page at the end of page, given page function by html2pdf is not working with xml-->
+						<VBox justifyContent="End">
+						<Label text="" />
+						<Label text="" />
+						<Label text="" />
+						<Label text="" />
+						<Label text="" />
+						<Label text="" />
+						<Label text="" />
+					</VBox>
+					<HBox justifyContent="End">
+						<Label text="Seite 4" class="sapUiSmallMargin" design="Bold" textAlign="Right"/>
+					</HBox>
+					<Text class="html2pdf__page-break"></Text>
 					<!--Results-->
 					<layout:Grid defaultSpan="L3 M4 S6" class="sapUiSmallMarginTop">
 						<layout:content>
@@ -658,8 +672,28 @@
 								description="{path: 'savedProjects>iconTabs/operationsCenter/1', formatter: '.formatter.translate'}"/>
 							<StandardListItem title="{path: 'savedProjects>decisionPercentage/operationsCenter/2'}%"
 								description="{path: 'savedProjects>iconTabs/operationsCenter/2', formatter: '.formatter.translate'}"/>
+							
 						</layout:content>
 					</layout:Grid>
+				
+								<VBox justifyContent="End">
+						<Label text="" />
+						<Label text="" />
+						<Label text="" />
+						<Label text="" />
+						<Label text="" />
+						<Label text="" />
+						<Label text="" />
+							<Label text="" />
+						<Label text="" />
+						<Label text="" />
+						<Label text="" />
+						
+						
+							<HBox justifyContent="End">
+								<Label text="Seite 5" class="sapUiSmallMargin" design="Bold" textAlign="Right"/>
+							</HBox>
+					</VBox>
 				</content>
 			</Page>
 		</pages>

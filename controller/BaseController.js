@@ -21,14 +21,9 @@ sap.ui.define([
 		_onCloseIncludedEnhancementsDialog: function(){
 			this.dialog.close();
 		},
-		_getIncludedEnhancementsDialog: function(){
-				if (!this.dialog) {
-				this.dialog = sap.ui.xmlfragment("M4A.fragment.IncludedEnhancements", this);
-			}
-			return this.dialog;
-		},
+	
 		_onFooterVersionButtonPress: function(){
-			debugger;
+			
 				var oDialog = this._getIncludedEnhancementsDialog();
 				oDialog.open();
 			

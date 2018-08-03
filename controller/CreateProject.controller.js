@@ -125,60 +125,8 @@ sap.ui.define([
 				selectedTab: selectedTab
 			});
 
-			/*var printFragment = sap.ui.xmlfragment("M4A.fragment.PrintPDF", this);
-				printFragment.addEventDelegate({
-					"onAfterRendering": function(oEvent) {
-						debugger;
-						var element = this.getView().byId("printProjectPage").getDomRef().innerHTML;
-						
-						var opt = {
-							margin: 0.5,
-							filename: 'MobileTechnologyDecisionAdvisorDienstag.pdf',
-
-							html2canvas: {
-								scale: 2
-							},
-							jsPDF: {
-								unit: 'in',
-								format: 'letter',
-								orientation: 'landscape'
-
-							}
-						};
-
-						html2pdf().from(element).set(opt).save();
-					}
-				}, this);*/
 		},
 
-		/*_onPressOpenPrintFragment: function(oEvent){
-		 	var printFragment = sap.ui.xmlfragment("M4A.fragment.PrintPDF", this);
-			printFragment.addEventDelegate({
-				"onAfterRendering": function(oEvent) {
-					setTimeout(function() {
-					debugger;
-					var element = this.getView().byId("printProjectPage").getDomRef().innerHTML;
-					
-					var opt = {
-						margin: 0.5,
-						filename: 'MobileTechnologyDecisionAdvisorDienstag.pdf',
-
-						html2canvas: {
-							scale: 2
-						},
-						jsPDF: {
-							unit: 'in',
-							format: 'letter',
-							orientation: 'landscape'
-
-						}
-					};
-
-					html2pdf().from(element).set(opt).save();
-					}.bind(this), 300);
-				}
-			}, this);
-		 },*/
 		_onchangeBackgroundTechnologyFactors: function() {
 			//to change background color of select, even for the dependencies(not selected by user)
 			this.getView().byId("tableClientTechnologyFactors").getItems().forEach(function(item) {
@@ -229,14 +177,11 @@ sap.ui.define([
 			});
 		},
 		_onPressChangeMode: function(oEvent) {
-			//var itemBindingPath = oEvent.getSource().getBindingContext("factorCatalog").getPath();
-			//var factorCatalogModel = this._getFactorCatalogModel();
-			//var factorPath = itemBindingPath.split("/", 3);
-			//var category = factorPath[1];
+
 			var oSource = oEvent.getSource();
 			var oIcon = oSource.getIcon();
 			var sId = oSource.getId();
-			//var oButton = this.getView().byId("changeModeButton");
+
 			if (oIcon === "sap-icon://display") {
 				oSource.setIcon("sap-icon://edit");
 
@@ -341,14 +286,6 @@ sap.ui.define([
 				}
 
 			}
-
-		},
-		_onDataExportPDF: function(oEvent) {
-
-			this._onPressNavPrint();
-			var element = document.getElementById("printProjectPage");
-
-			html2pdf(element);
 
 		},
 
@@ -871,26 +808,6 @@ sap.ui.define([
 								aAdditionalInformationSavedProject);
 							savedProjectsModel.setProperty(viewBindingPath + "/applicationName", sApplicationNameSavedProject);
 
-							/*var sUrl = jQuery.sap.getModulePath("M4A.model", "/newProject.json");
-							$.ajax({
-								type: "GET",
-								url: sUrl,
-								contentType: "application/json",
-								dataType: "json",
-								data: {},
-								success: function(data) {
-
-									var savedProjectsModel = this.getView().getModel("savedProjects");
-									var sPath = this.getView().getBindingContext("savedProjects").getPath();
-									data.selectedIconTab = "information";
-									savedProjectsModel.setProperty(sPath, data);
-
-								}.bind(this),
-								error: function(jqXHR, textStatus, errorThrown) {
-									alert(textStatus.toString());
-								}
-							});*/
-
 						} else if (sKey === "clientTechnology") {
 
 							//update savedProjectsModel
@@ -985,36 +902,36 @@ sap.ui.define([
 
 			var odataModel = this.getView().getModel("savedProjectsOData");
 			var savedProjectsModelPromise = this._getSavedProjectsModelPromise(odataModel);
-			var savedProjectsModel = this.getView().getModel("savedProjects");
+			//var savedProjectsModel = this.getView().getModel("savedProjects");
 
-			if (jQuery.isEmptyObject(savedProjectsModel.getData())) {
-				//wo wird hier savedProjects neu deklariert?
-				savedProjectsModelPromise.then(function(savedProjectsModel) {
-					var factorCatalogModel = this._getFactorCatalogModel();
-					var projectValues = savedProjectsModel.getProperty(viewBindingPath);
-					for (var category in projectValues) {
-						var categoryFactors = factorCatalogModel.getProperty("/" + category);
-						if (projectValues.hasOwnProperty(category) && categoryFactors !== undefined && category !== "additionalInformation") {
-							for (var i = 0; i < categoryFactors.length; i++) {
-								var factorName = categoryFactors[i].factor;
-								var selectedOption = projectValues[category][factorName].selectionOptions.key;
-								var selectedWeight = projectValues[category][factorName].importance.key;
-								factorCatalogModel.setProperty("/" + category + "/" + i + "/currentSelection", selectedOption);
-								factorCatalogModel.setProperty("/" + category + "/" + i + "/currentWeight", selectedWeight);
-							}
+			//if (jQuery.isEmptyObject(savedProjectsModel.getData())) {
+			//wo wird hier savedProjects neu deklariert?
+			savedProjectsModelPromise.then(function(savedProjectsModel) {
+				var factorCatalogModel = this._getFactorCatalogModel();
+				var projectValues = savedProjectsModel.getProperty(viewBindingPath);
+				for (var category in projectValues) {
+					var categoryFactors = factorCatalogModel.getProperty("/" + category);
+					if (projectValues.hasOwnProperty(category) && categoryFactors !== undefined && category !== "additionalInformation") {
+						for (var i = 0; i < categoryFactors.length; i++) {
+							var factorName = categoryFactors[i].factor;
+							var selectedOption = projectValues[category][factorName].selectionOptions.key;
+							var selectedWeight = projectValues[category][factorName].importance.key;
+							factorCatalogModel.setProperty("/" + category + "/" + i + "/currentSelection", selectedOption);
+							factorCatalogModel.setProperty("/" + category + "/" + i + "/currentWeight", selectedWeight);
 						}
-						//initialize Model
-						this._updateResults("clientTechnology");
-						this._updateResults("dataSync");
-						this._updateResults("operationsCenter");
-						this._updateSelectionProgress("clientTechnology");
-						this._updateSelectionProgress("dataSync");
-						this._updateSelectionProgress("operationsCenter");
-						//this._getODataService();
 					}
+					//initialize Model
+					this._updateResults("clientTechnology");
+					this._updateResults("dataSync");
+					this._updateResults("operationsCenter");
+					this._updateSelectionProgress("clientTechnology");
+					this._updateSelectionProgress("dataSync");
+					this._updateSelectionProgress("operationsCenter");
+					//this._getODataService();
+				}
 
-				}.bind(this));
-			} else {
+			}.bind(this));
+			/*} else {
 				savedProjectsModel = this._getSavedProjectsModel();
 				var factorCatalogModel = this._getFactorCatalogModel();
 				var projectValues = savedProjectsModel.getProperty(viewBindingPath);
@@ -1038,7 +955,7 @@ sap.ui.define([
 					this._updateSelectionProgress("operationsCenter");
 				}
 
-			}
+			}*/
 
 		},
 		_loadCategory: function(viewBindingPath, category) {
@@ -1577,7 +1494,7 @@ sap.ui.define([
 			/*	var savedProjects = savedProjectsModel.getJSON();
 			storage.save("savedProjects", savedProjects);*/
 
-			//this._getODataService();
+			this._getODataService();
 
 			this._updateRecommendation(category);
 		},
@@ -1749,27 +1666,90 @@ sap.ui.define([
 			return string.substring(0, 1).toUpperCase() + string.substring(1);
 		},
 		_updateResults: function(category) {
+			
 			var viewBindingPath = this.getView().getBindingContext("savedProjects").getPath();
 			var savedProjectsModel = this._getSavedProjectsModel();
 			var factorsInCategory = savedProjectsModel.getProperty(viewBindingPath + "/" + category);
-			var results = [0, 0, 0];
-			for (var factor in factorsInCategory) {
-				if (factorsInCategory.hasOwnProperty(factor)) {
-					var factorObject = factorsInCategory[factor];
-					for (var j = 0; j < factorObject.selectionOptions.resultInfluence.length; j++) {
-						results[j] += parseInt(factorObject.selectionOptions.resultInfluence[j], 10) * parseInt(factorObject.importance.weight, 10);
+			var ko = savedProjectsModel.getProperty(viewBindingPath + "/dataSync/offlineDataVolume/selectionOptions/key");
+			if (category === "dataSync") {
+				var factorsInCategoryData = savedProjectsModel.getProperty(viewBindingPath + "/" + category);
+				var aDataResults = [0, 0, 0];
+				for (var factorData in factorsInCategoryData) {
+					if (factorsInCategoryData.hasOwnProperty(factorData)) {
+						var factorObjectData = factorsInCategoryData[factorData];
+						for (var j = 0; j < factorObjectData.selectionOptions.resultInfluence.length; j++) {
+							aDataResults[j] += parseInt(factorObjectData.selectionOptions.resultInfluence[j], 10) * parseInt(factorObjectData.importance.weight, 10);
+						}
 					}
 				}
-			}
 
-			//Check if KO-criteria fits
-			var ko = savedProjectsModel.getProperty(viewBindingPath + "/" + category + "/offlineDataVolume/selectionOptions/key");
-			if (category === "dataSync" && ko === "LT100MB" || ko === "MT100MB") {
-				//Set online option to zero
-				results[0] = 0;
-			}
-			savedProjectsModel.setProperty(viewBindingPath + "/decisionIndication/" + category, results);
+				if (ko === "LT100MB" || ko === "MT100MB") {
+					//Set online option to zero & set web option to zero
+					aDataResults[0] = 0;
+					savedProjectsModel.setProperty(viewBindingPath + "/decisionIndication/clientTechnology/0", 0);
+					this._reloadSelection(viewBindingPath, "clientTechnology");
+					//this._reloadSelection(viewBindingPath, "clientTechnology");
+					
+
+				}
+				if(ko === "no"){
+					var factorsInCategoryClient = savedProjectsModel.getProperty(viewBindingPath + "/clientTechnology");
+						var aClientResults = [0, 0, 0];
+				for (var factorClient in factorsInCategoryClient) {
+					if (factorsInCategoryClient.hasOwnProperty(factorClient)) {
+						var factorObjectClient = factorsInCategoryClient[factorClient];
+						for (var i = 0; i < factorObjectClient.selectionOptions.resultInfluence.length; i++) {
+							aClientResults[i] += parseInt(factorObjectClient.selectionOptions.resultInfluence[i], 10) * parseInt(factorObjectClient.importance.weight,
+								10);
+						}
+					}
+				}
+				savedProjectsModel.setProperty(viewBindingPath + "/decisionIndication/clientTechnology" , aClientResults);
+				this._reloadSelection(viewBindingPath, "clientTechnology");
+					
+				}
+				savedProjectsModel.setProperty(viewBindingPath + "/decisionIndication/" + category, aDataResults);
+
+			} //datasync
+			else if (category === "clientTechnology") {
+				var aClientResultsClient = [0, 0, 0];
+				var factorsInCategoryClientClient = savedProjectsModel.getProperty(viewBindingPath + "/clientTechnology");
+				for (var factorClientClient in factorsInCategoryClientClient) {
+					if (factorsInCategoryClientClient.hasOwnProperty(factorClientClient)) {
+						var factorObjectClientClient = factorsInCategory[factorClientClient];
+						for (var k = 0; k < factorObjectClientClient.selectionOptions.resultInfluence.length; k++) {
+							aClientResultsClient[k] += parseInt(factorObjectClientClient.selectionOptions.resultInfluence[k], 10) * parseInt(factorObjectClientClient.importance.weight,
+								10);
+						}
+					}
+				}
+
+				if (ko === "LT100MB" || ko === "MT100MB") {
+					//Set online option to zero & set web option to zero
+					aClientResultsClient[0] = 0;
+
+				}
+				savedProjectsModel.setProperty(viewBindingPath + "/decisionIndication/" + category, aClientResultsClient);
+
+			} //client
+			else if (category === "operationsCenter") {
+				var aOperationsResults = [0, 0, 0];
+					var factorsInCategoryOp = savedProjectsModel.getProperty(viewBindingPath + "/clientTechnology");
+				for (var factorOp in factorsInCategoryOp) {
+					if (factorsInCategoryOp.hasOwnProperty(factorOp)) {
+						var factorObjectOp = factorsInCategoryOp[factorOp];
+						for (var l = 0; l < factorObjectOp.selectionOptions.resultInfluence.length; l++) {
+							aOperationsResults[l] += parseInt(factorObjectOp.selectionOptions.resultInfluence[l], 10) * parseInt(factorObjectOp.importance.weight,
+								10);
+						}
+					}
+				}
+				savedProjectsModel.setProperty(viewBindingPath + "/decisionIndication/" + category, aOperationsResults);
+
+			} //operationsCenter
+
 		},
+
 		/////////////////////////////////////////////////GETTERS & SETTERS///////////////////////////////////////////////////////
 		_getIconTabBar: function() {
 			var oIconTabBar = this._oIconTabBar;
@@ -1795,18 +1775,23 @@ sap.ui.define([
 			var oSavedProjectsOData = this.getView().getModel("savedProjectsOData");
 
 			var oSavedProjectsModel = this.getView().getModel("savedProjects");
+			if (jQuery.isEmptyObject(oSavedProjectsModel.getData())) {
 
-			odataModel.metadataLoaded().then(function() {
-				//setTimeout(function() {
+				odataModel.metadataLoaded().then(function() {
+					//setTimeout(function() {
 
-				oSavedProjectsOData.attachEvent("requestCompleted", function() {
-					oDeferred.resolve(oSavedProjectsModel);
+					oSavedProjectsOData.attachEvent("requestCompleted", function() {
+						oDeferred.resolve(oSavedProjectsModel);
 
-				});
+					});
 
-				//	}.bind(this), 1000);
+					//	}.bind(this), 1000);
 
-			}.bind(this));
+				}.bind(this));
+			} else {
+				oDeferred.resolve(oSavedProjectsModel);
+
+			}
 
 			return oDeferred.promise();
 		},
@@ -1848,12 +1833,6 @@ sap.ui.define([
 				success: success,
 				error: error
 			});
-
-			/*{
-				oEntry: oEntry,
-				success: success,
-				error: error
-			});*/
 
 		}
 	});
