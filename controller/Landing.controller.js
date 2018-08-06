@@ -1,6 +1,7 @@
 sap.ui.define([
-	"M4A/controller/BaseController"
-], function(BaseController) {
+	"M4A/controller/BaseController",
+	"M4A/model/models"
+], function(BaseController, models) {
 	"use strict";
 
 	return BaseController.extend("M4A.controller.Landing", {
@@ -102,12 +103,15 @@ sap.ui.define([
 		},
 		_onDialogIncludedEnhancementsPress: function(oEvent) {
 			
+			
 			this._getIncludedEnhancementsDialog().open();
 
 		},
 		_getIncludedEnhancementsDialog: function() {
 
 			this.dialog = sap.ui.xmlfragment("M4A.fragment.IncludedEnhancements", this);
+			var i18nModel = this.getView().getModel("i18n");
+			this.dialog.setModel(i18nModel, "i18n"); 
 
 			return this.dialog;
 		},

@@ -866,6 +866,8 @@ sap.ui.define([
 					oDialog.destroy();
 				}
 			});
+			var warningButton = this.getView().byId("warningForOffline");
+			warningButton.setVisible(false);
 
 			oDialog.open();
 		},
@@ -896,6 +898,30 @@ sap.ui.define([
 				this.dialog = sap.ui.xmlfragment("M4A.fragment.Information", this);
 			}
 			return this.dialog;
+		},
+		_onAlertButtonPress: function() {
+			var oDialog = new sap.m.Dialog("dialog", {
+				title: this.getView().getModel("i18n").getResourceBundle().getText("AlertInformation"),
+				type: 'Message',
+				state: 'Warning',
+				content: new Text({
+					text: this.getView().getModel("i18n").getResourceBundle().getText("AlertInformartionText")
+				}),
+
+				endButton: new Button({
+					text: this.getView().getModel("i18n").getResourceBundle().getText("back"),
+					press: function() {
+						oDialog.close();
+					}
+				}),
+
+				afterClose: function() {
+					oDialog.destroy();
+				}
+			});
+
+			oDialog.open();
+
 		},
 
 		_loadSavedValues: function(viewBindingPath) {
@@ -931,31 +957,6 @@ sap.ui.define([
 				}
 
 			}.bind(this));
-			/*} else {
-				savedProjectsModel = this._getSavedProjectsModel();
-				var factorCatalogModel = this._getFactorCatalogModel();
-				var projectValues = savedProjectsModel.getProperty(viewBindingPath);
-				for (var category in projectValues) {
-					var categoryFactors = factorCatalogModel.getProperty("/" + category);
-					if (projectValues.hasOwnProperty(category) && categoryFactors !== undefined && category !== "additionalInformation") {
-						for (var i = 0; i < categoryFactors.length; i++) {
-							var factorName = categoryFactors[i].factor;
-							var selectedOption = projectValues[category][factorName].selectionOptions.key;
-							var selectedWeight = projectValues[category][factorName].importance.key;
-							factorCatalogModel.setProperty("/" + category + "/" + i + "/currentSelection", selectedOption);
-							factorCatalogModel.setProperty("/" + category + "/" + i + "/currentWeight", selectedWeight);
-						}
-					}
-					//initialize Model
-					this._updateResults("clientTechnology");
-					this._updateResults("dataSync");
-					this._updateResults("operationsCenter");
-					this._updateSelectionProgress("clientTechnology");
-					this._updateSelectionProgress("dataSync");
-					this._updateSelectionProgress("operationsCenter");
-				}
-
-			}*/
 
 		},
 		_loadCategory: function(viewBindingPath, category) {
@@ -1666,7 +1667,7 @@ sap.ui.define([
 			return string.substring(0, 1).toUpperCase() + string.substring(1);
 		},
 		_updateResults: function(category) {
-			
+
 			var viewBindingPath = this.getView().getBindingContext("savedProjects").getPath();
 			var savedProjectsModel = this._getSavedProjectsModel();
 			var factorsInCategory = savedProjectsModel.getProperty(viewBindingPath + "/" + category);
@@ -1678,7 +1679,8 @@ sap.ui.define([
 					if (factorsInCategoryData.hasOwnProperty(factorData)) {
 						var factorObjectData = factorsInCategoryData[factorData];
 						for (var j = 0; j < factorObjectData.selectionOptions.resultInfluence.length; j++) {
-							aDataResults[j] += parseInt(factorObjectData.selectionOptions.resultInfluence[j], 10) * parseInt(factorObjectData.importance.weight, 10);
+							aDataResults[j] += parseInt(factorObjectData.selectionOptions.resultInfluence[j], 10) * parseInt(factorObjectData.importance.weight,
+								10);
 						}
 					}
 				}
@@ -1688,25 +1690,24 @@ sap.ui.define([
 					aDataResults[0] = 0;
 					savedProjectsModel.setProperty(viewBindingPath + "/decisionIndication/clientTechnology/0", 0);
 					this._reloadSelection(viewBindingPath, "clientTechnology");
-					//this._reloadSelection(viewBindingPath, "clientTechnology");
-					
 
 				}
-				if(ko === "no"){
+				if (ko === "no") {
 					var factorsInCategoryClient = savedProjectsModel.getProperty(viewBindingPath + "/clientTechnology");
-						var aClientResults = [0, 0, 0];
-				for (var factorClient in factorsInCategoryClient) {
-					if (factorsInCategoryClient.hasOwnProperty(factorClient)) {
-						var factorObjectClient = factorsInCategoryClient[factorClient];
-						for (var i = 0; i < factorObjectClient.selectionOptions.resultInfluence.length; i++) {
-							aClientResults[i] += parseInt(factorObjectClient.selectionOptions.resultInfluence[i], 10) * parseInt(factorObjectClient.importance.weight,
-								10);
+					var aClientResults = [0, 0, 0];
+					for (var factorClient in factorsInCategoryClient) {
+						if (factorsInCategoryClient.hasOwnProperty(factorClient)) {
+							var factorObjectClient = factorsInCategoryClient[factorClient];
+							for (var i = 0; i < factorObjectClient.selectionOptions.resultInfluence.length; i++) {
+								aClientResults[i] += parseInt(factorObjectClient.selectionOptions.resultInfluence[i], 10) * parseInt(factorObjectClient.importance
+									.weight,
+									10);
+							}
 						}
 					}
-				}
-				savedProjectsModel.setProperty(viewBindingPath + "/decisionIndication/clientTechnology" , aClientResults);
-				this._reloadSelection(viewBindingPath, "clientTechnology");
-					
+					savedProjectsModel.setProperty(viewBindingPath + "/decisionIndication/clientTechnology", aClientResults);
+					this._reloadSelection(viewBindingPath, "clientTechnology");
+
 				}
 				savedProjectsModel.setProperty(viewBindingPath + "/decisionIndication/" + category, aDataResults);
 
@@ -1718,7 +1719,8 @@ sap.ui.define([
 					if (factorsInCategoryClientClient.hasOwnProperty(factorClientClient)) {
 						var factorObjectClientClient = factorsInCategory[factorClientClient];
 						for (var k = 0; k < factorObjectClientClient.selectionOptions.resultInfluence.length; k++) {
-							aClientResultsClient[k] += parseInt(factorObjectClientClient.selectionOptions.resultInfluence[k], 10) * parseInt(factorObjectClientClient.importance.weight,
+							aClientResultsClient[k] += parseInt(factorObjectClientClient.selectionOptions.resultInfluence[k], 10) * parseInt(
+								factorObjectClientClient.importance.weight,
 								10);
 						}
 					}
@@ -1734,7 +1736,7 @@ sap.ui.define([
 			} //client
 			else if (category === "operationsCenter") {
 				var aOperationsResults = [0, 0, 0];
-					var factorsInCategoryOp = savedProjectsModel.getProperty(viewBindingPath + "/clientTechnology");
+				var factorsInCategoryOp = savedProjectsModel.getProperty(viewBindingPath + "/clientTechnology");
 				for (var factorOp in factorsInCategoryOp) {
 					if (factorsInCategoryOp.hasOwnProperty(factorOp)) {
 						var factorObjectOp = factorsInCategoryOp[factorOp];

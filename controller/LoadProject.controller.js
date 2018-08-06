@@ -4,8 +4,9 @@ sap.ui.define([
 	"jquery.sap.global",
 	"sap/ui/core/Fragment",
 	"sap/ui/model/Filter",
-	"sap/ui/model/Sorter"
-], function(BaseController, storage, jQuery, Fragment, Filter, Sorter) {
+	"sap/ui/model/Sorter",
+	"M4A/model/models"
+], function(BaseController, storage, jQuery, Fragment, Filter, Sorter,models) {
 	"use strict";
 
 	return BaseController.extend("M4A.controller.LoadProject", {
@@ -275,6 +276,21 @@ sap.ui.define([
 
 				//});//attachrequestcompleted
 
-			} //handleCopy
+			} ,//handleCopy
+				_onDialogIncludedEnhancementsPress: function(oEvent) {
+			
+			this._getIncludedEnhancementsDialog().open();
+
+		},
+		_getIncludedEnhancementsDialog: function() {
+			
+			
+
+			this.dialog = sap.ui.xmlfragment("M4A.fragment.IncludedEnhancements", this);
+			var i18nModel = this.getView().getModel("i18n");
+			this.dialog.setModel(i18nModel, "i18n"); 
+
+			return this.dialog;
+		}
 	});
 });

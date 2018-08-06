@@ -296,10 +296,11 @@
 								class="sapUiSmallMargin">
 								<content>
 									<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true">
-										<HBox alignItems="Center" justifyContent="SpaceBetween">
+										<VBox alignItems="Start" >
 											<Title text="{i18n>overview}: {path: 'savedProjects>applicationName'}" titleStyle="H1" class="sapUiSmallMargin"/>
+												<Button  visible= "{= ${savedProjects>decisionIndication/dataSync/0} === 0}" icon="sap-icon://alert" tooltip="{i18n>InformationWeb}" press="_onAlertButtonPress" class="sapUiSmallMarginBegin"/>
 											<!--progress indicator-->
-										</HBox>
+										</VBox>
 										<layout:Grid defaultSpan="L3 M4 S6" class="sapUiSmallMarginTop">
 											<layout:content>
 												<StandardListItem type="Navigation" press="_onOverviewToClientTechnologyPress"
@@ -318,6 +319,7 @@
 																valueColor="{=Math.max.apply(null,${savedProjects>decisionIndication/clientTechnology})===${savedProjects>decisionIndication/clientTechnology/0} ? 'Good' : 'Neutral' }"/>
 														</FlexBox>
 														<Label text="{path: 'savedProjects>iconTabs/clientTechnology/0', formatter: '.formatter.translate'}"/>
+														
 													</FlexBox>
 												</CustomListItem>
 												<CustomListItem>
@@ -358,6 +360,7 @@
 																valueColor="{=Math.max.apply(null,${savedProjects>decisionIndication/dataSync})===${savedProjects>decisionIndication/dataSync/0} ? 'Good' : 'Neutral' }"/>
 														</FlexBox>
 														<Label text="{path: 'savedProjects>iconTabs/dataSync/0', formatter: '.formatter.translate'}"/>
+														
 													</FlexBox>
 												</CustomListItem>
 												<CustomListItem>
@@ -444,6 +447,7 @@
 								<micro:RadialMicroChart total="100" percentage="{path: 'savedProjects>decisionPercentage/clientTechnology/0'}"
 									visible="{= ${savedProjects>decisionIndication/clientTechnology/} !== 0}"/>
 							</FlexBox>
+							<Button id="warningForWeb" visible= "{= ${savedProjects>decisionIndication/clientTechnology/0} === 0}" icon="sap-icon://alert" tooltip="{i18n>InformationWeb}" press="_onAlertButtonPress"/>
 							<Title width="7rem" textAlign="Center" text="{path: 'savedProjects>iconTabs/clientTechnology/1', formatter: '.formatter.translate'} : "
 								level="H1" visible="{= ${savedProjects>decisionIndication/clientTechnology/} !== 0}"/>
 							<FlexBox height="3.125rem" width="3.125rem">
@@ -467,6 +471,7 @@
 								<micro:RadialMicroChart id="RmsDs1" total="100" percentage="{path: 'savedProjects>decisionPercentage/dataSync/0'}"
 									visible="{= ${savedProjects>decisionIndication/dataSync/} !== 0}"/>
 							</FlexBox>
+							<Button id="warningForOffline" visible= "{= ${savedProjects>decisionIndication/dataSync/0} === 0}" icon="sap-icon://alert" tooltip="{i18n>InformationWeb}" press="_onAlertButtonPress"/>
 							<Title width="7rem" textAlign="Center" text="{path: 'savedProjects>iconTabs/dataSync/1', formatter: '.formatter.translate'} : " level="H1"
 								visible="{= ${savedProjects>decisionIndication/dataSync/} !== 0}"/>
 							<FlexBox height="3.125rem" width="3.125rem">

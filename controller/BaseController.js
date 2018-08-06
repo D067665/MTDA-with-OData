@@ -20,13 +20,8 @@ sap.ui.define([
 	*/	},
 		_onCloseIncludedEnhancementsDialog: function(){
 			this.dialog.close();
-		},
-	
-		_onFooterVersionButtonPress: function(){
-			
-				var oDialog = this._getIncludedEnhancementsDialog();
-				oDialog.open();
-			
 		}
+	
+	
 	});
 });
